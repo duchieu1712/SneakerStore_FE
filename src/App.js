@@ -1,11 +1,11 @@
 import './App.css';
 import Header from './Components/Header/Header';
+import Routers from './Routers';
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
-    </div>
+    <Routers/>
+
   );
 }
 export default App;

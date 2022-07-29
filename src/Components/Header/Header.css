@@ -5,3 +5,6 @@
 .gapItem {
     row-gap: 1rem;
 }
+.marginLeft{
+    margin-left: 0!important;
+}

@@ -1,9 +1,14 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
-import { FaApple, FaAngleDown } from "react-icons/fa";
-import { SiNike, SiAdidas, SiPuma, SiReebok } from "react-icons/si";
+import { FaAngleDown, FaBars, FaRegUser } from "react-icons/fa";
+import { SiNike, SiAdidas, SiPuma, SiReebok, SiMlb } from "react-icons/si";
+import { BsCart4, BsBagCheck } from "react-icons/bs";
 import { GiConverseShoe } from "react-icons/gi";
+import { MdClose } from "react-icons/md"
+import { FiSettings } from "react-icons/fi"
+
+
 
 import "./Header.css";
 const brands = [
@@ -31,6 +36,11 @@ const brands = [
     name: "Reebok",
     href: "#",
     icon: SiReebok,
+  },
+  {
+    name: "MLB",
+    href: "#",
+    icon: SiMlb,
   },
 ];
 const categories = [
@@ -89,22 +99,17 @@ const forUser = [
   {
     name: "Your profile",
     href: "#",
-    icon: FaApple,
-  },
-  {
-    name: "Your cart",
-    href: "#",
-    icon: FaApple,
+    icon: FaRegUser,
   },
   {
     name: "Ordered",
     href: "#",
-    icon: FaApple,
+    icon: BsBagCheck,
   },
   {
     name: "Settings",
     href: "#",
-    icon: FaApple,
+    icon: FiSettings,
   },
 ];
 
@@ -112,12 +117,19 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Header() {
-  const user = false;
+export default function Header({onHandleCart}) {
+  const user = true;
+
   return (
     <Popover className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center py-5 md:justify-start md:space-x-10">
+          <div className="-my-2 md:hidden">
+            <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+              <span className="sr-only">Open menu</span>
+              <FaBars className="h-6 w-6" aria-hidden="true" />
+            </Popover.Button>
+          </div>
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <a href="#">
               <span className="sr-only">Workflow</span>
@@ -128,13 +140,10 @@ export default function Header() {
               />
             </a>
           </div>
-          <div className="-mr-2 -my-2 md:hidden">
-            <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-              <span className="sr-only">Open menu</span>
-              <FaApple className="h-6 w-6" aria-hidden="true" />
-            </Popover.Button>
-          </div>
-          <Popover.Group as="nav" className="hidden md:flex space-x-7 marginLeft">
+          <Popover.Group
+            as="nav"
+            className="hidden md:flex space-x-7 marginLeft"
+          >
             <Popover className="relative">
               {({ open }) => (
                 <>
@@ -253,9 +262,17 @@ export default function Header() {
           {user ? (
             <Menu
               as="div"
-              className="hidden md:flex items-center justify-end md:flex-1 lg:w-0"
+              className="md:flex items-center justify-end md:flex-1 lg:w-0"
             >
-              <div>
+              <div className="flex">
+                <button
+                  type="button"
+                  className="p-1 rounded-full text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white mr-4"
+                  onClick={()=>onHandleCart()}
+                >
+                  <span className="sr-only">View notifications</span>
+                  <BsCart4 className="h-6 w-6" aria-hidden="true" />
+                </button>
                 <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                   <span className="sr-only">Open user menu</span>
                   <img
@@ -274,7 +291,7 @@ export default function Header() {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="origin-top-right absolute positionMenu mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="origin-top-right absolute positionMenu mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20">
                   {forUser.map((item) => (
                     <Menu.Item>
                       {({ active }) => (
@@ -297,7 +314,7 @@ export default function Header() {
                         href="#"
                         className={classNames(
                           active ? "bg-gray-100" : "",
-                          "block px-4 py-2 text-sm text-gray-700"
+                          "block px-4 py-2 text-sm text-gray-700 text-center"
                         )}
                       >
                         Sign out
@@ -337,11 +354,17 @@ export default function Header() {
       >
         <Popover.Panel
           focus
-          className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+          className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-10"
         >
           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
             <div className="pt-5 pb-6 px-5">
               <div className="flex items-center justify-between">
+                <div className="-mr-2">
+                  <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                    <span className="sr-only">Close menu</span>
+                    <MdClose className="h-6 w-6" aria-hidden="true" />
+                  </Popover.Button>
+                </div>
                 <div>
                   <img
                     className="h-8 w-auto"
@@ -349,16 +372,10 @@ export default function Header() {
                     alt="Workflow"
                   />
                 </div>
-                <div className="-mr-2">
-                  <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                    <span className="sr-only">Close menu</span>
-                    <FaApple className="h-6 w-6" aria-hidden="true" />
-                  </Popover.Button>
-                </div>
               </div>
               <div className="mt-6">
-                <h3 className="mb-4">Brands</h3>
-                <nav className="grid grid-cols-2 gap-x-8 gapItem">
+                <h3 className="mb-4 text-center">Brands</h3>
+                <nav className="grid grid-cols-2 gap-x-32 gapItem">
                   {brands.map((item) => (
                     <a
                       key={item.name}
@@ -377,8 +394,8 @@ export default function Header() {
                 </nav>
               </div>
               <div className="mt-6">
-                <h3 className="mb-4">Categories</h3>
-                <nav className="grid grid-cols-2 gap-x-8 gapItem">
+                <h3 className="mb-4 text-center">Categories</h3>
+                <nav className="grid grid-cols-2 gap-x-32 gapItem">
                   {categories.map((item) => (
                     <a
                       key={item.name}
@@ -394,7 +411,7 @@ export default function Header() {
               </div>
             </div>
             <div className="py-6 px-5 space-y-6">
-              <div className="grid grid-cols-2 gap-y-4 gap-x-8">
+              <div className="grid grid-cols-2 gap-y-4 gap-x-32">
                 {resources.map((item) => (
                   <a
                     key={item.name}
@@ -407,24 +424,7 @@ export default function Header() {
               </div>
               {user ? (
                 <div className="mt-6">
-                <nav className="grid grid-cols-2 gap-x-8 gapItem">
-                  {forUser.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
-                    >
-                      <item.icon
-                        className="flex-shrink-0 h-6 w-6 text-indigo-600"
-                        aria-hidden="true"
-                      />
-                      <span className="ml-3 text-base font-medium text-gray-900">
-                        {item.name}
-                      </span>
-                    </a>
-                  ))}
-                </nav>
-              </div>
+                </div>
               ) : (
                 <div>
                   <a

@@ -1,16 +1,16 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
-import { FaAngleDown, FaBars, FaRegUser } from "react-icons/fa";
+import { FaAngleDown, FaBars, FaRegUser, FaSearch } from "react-icons/fa";
 import { SiNike, SiAdidas, SiPuma, SiReebok, SiMlb } from "react-icons/si";
 import { BsCart4, BsBagCheck } from "react-icons/bs";
 import { GiConverseShoe } from "react-icons/gi";
-import { MdClose } from "react-icons/md"
-import { FiSettings } from "react-icons/fi"
-
-
-
+import { MdClose } from "react-icons/md";
+import { FiSettings } from "react-icons/fi";
+import { styled, alpha } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
 import "./Header.css";
+
 const brands = [
   {
     name: "Nike",
@@ -112,12 +112,51 @@ const forUser = [
     icon: FiSettings,
   },
 ];
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: "auto",
+  // [theme.breakpoints.up("sm")]: {
+  //   marginLeft: theme.spacing(1),
+  //   width: "auto",
+  // },
+}));
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "10ch",
+      "&:focus": {
+        width: "12ch",
+      },
+    },
+  },
+}));
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Header({onHandleCart}) {
+export default function Header({ onHandleCart }) {
   const user = true;
 
   return (
@@ -172,7 +211,7 @@ export default function Header({onHandleCart}) {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-ss sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
+                    <Popover.Panel className="absolute z-20 -ml-4 mt-3 transform px-2 w-screen max-w-ss sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {brands.map((item) => (
@@ -227,7 +266,7 @@ export default function Header({onHandleCart}) {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-ss sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
+                    <Popover.Panel className="absolute z-20 -ml-4 mt-3 transform px-2 w-screen max-w-ss sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {categories.map((item) => (
@@ -259,6 +298,18 @@ export default function Header({onHandleCart}) {
               </a>
             ))}
           </Popover.Group>
+          <div className="hidden md:block">
+            <Search>
+              <SearchIconWrapper>
+                <FaSearch />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+          </div>
+
           {user ? (
             <Menu
               as="div"
@@ -268,7 +319,7 @@ export default function Header({onHandleCart}) {
                 <button
                   type="button"
                   className="p-1 rounded-full text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white mr-4"
-                  onClick={()=>onHandleCart()}
+                  onClick={() => onHandleCart()}
                 >
                   <span className="sr-only">View notifications</span>
                   <BsCart4 className="h-6 w-6" aria-hidden="true" />
@@ -373,6 +424,15 @@ export default function Header({onHandleCart}) {
                   />
                 </div>
               </div>
+              <Search>
+                <SearchIconWrapper>
+                  <FaSearch />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
               <div className="mt-6">
                 <h3 className="mb-4 text-center">Brands</h3>
                 <nav className="grid grid-cols-2 gap-x-32 gapItem">
@@ -423,8 +483,7 @@ export default function Header({onHandleCart}) {
                 ))}
               </div>
               {user ? (
-                <div className="mt-6">
-                </div>
+                <div className="mt-6"></div>
               ) : (
                 <div>
                   <a

@@ -1,19 +1,3 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 import React from "react";
 import "./ProductList.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -22,10 +6,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
 import Products from "../Products/Products";
-
-
+import Slider from "react-slick";
 
 export default function ProductList() {
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4
+  };
   const products = [
     {
       id: 1,
@@ -67,6 +57,26 @@ export default function ProductList() {
       imageAlt:
         "Hand holding black machined steel mechanical pencil with brass tip and top.",
     },
+    {
+      id: 4,
+      name: "Machined Mechanical Pencil",
+      href: "#",
+      price: "$35",
+      imageSrc:
+        "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
+      imageAlt:
+        "Hand holding black machined steel mechanical pencil with brass tip and top.",
+    },
+    {
+      id: 4,
+      name: "Machined Mechanical Pencil",
+      href: "#",
+      price: "$35",
+      imageSrc:
+        "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
+      imageAlt:
+        "Hand holding black machined steel mechanical pencil with brass tip and top.",
+    },
     // More products...
   ];
   return (
@@ -74,10 +84,24 @@ export default function ProductList() {
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Products</h2>
           <Swiper
-           slidesPerView={3}
+         
+           slidesPerView={4}
             cssMode={true}
             navigation={true}
             pagination={false}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+              },
+            }}
             mousewheel={true}
             keyboard={true}
             modules={[Navigation, Pagination]}

@@ -1,0 +1,9 @@
+.item  .group .img{
+    transition: all .5s;
+} 
+.item{
+    cursor: pointer;
+}
+.item .group:hover .img{
+    transform: scale(1.5);
+}

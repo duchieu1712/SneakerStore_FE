@@ -19,7 +19,7 @@ const filters = [
     options: [
       { value: 'nike', label: 'Nike', checked: false },
       { value: 'adidas', label: 'Adidas', checked: false },
-      { value: 'puma', label: 'Puma', checked: true },
+      { value: 'puma', label: 'Puma', checked: false },
       { value: 'converse', label: 'Converse', checked: false },
       { value: 'reebok', label: 'Reebok', checked: false },
       { value: 'mlb', label: 'MLB', checked: false },
@@ -31,7 +31,7 @@ const filters = [
     options: [
       { value: 'running', label: 'Running', checked: false },
       { value: 'fashion', label: 'Fashion', checked: false },
-      { value: 'slippers', label: 'Slippers', checked: true },
+      { value: 'slippers', label: 'Slippers', checked: false },
       { value: 'docter', label: 'Docter', checked: false },
       { value: 'boots', label: 'Boots', checked: false },
       { value: 'accessory', label: 'Accessory', checked: false },
@@ -46,7 +46,7 @@ const filters = [
       { value: '37', label: '37', checked: false },
       { value: '38', label: '38', checked: false },
       { value: '39', label: '39', checked: false },
-      { value: '40', label: '40', checked: true },
+      { value: '40', label: '40', checked: false },
       { value: '41', label: '41', checked: false },
       { value: '42', label: '42', checked: false },
     ],

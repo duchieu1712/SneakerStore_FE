@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { MdClose } from "react-icons/md"
 
@@ -29,7 +29,6 @@ const products = [
 ]
 
 export default function Cart({onCartOpen, onCartClose}) {
-  const [open, setOpen] = useState(true)
 
   return (
     <Transition.Root show={onCartOpen} as={Fragment}>
@@ -138,7 +137,7 @@ export default function Cart({onCartOpen, onCartClose}) {
                           <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={() => setOpen(false)}
+                            onClick={()=>onCartClose()}
                           >
                             Continue Shopping<span aria-hidden="true"> &rarr;</span>
                           </button>

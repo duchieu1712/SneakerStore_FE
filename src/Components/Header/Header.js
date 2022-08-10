@@ -1,15 +1,16 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from "react";
+import { NavLink } from "react-router-dom";
 import { Popover, Transition, Menu } from "@headlessui/react";
-import { FaAngleDown, FaBars, FaRegUser, FaSearch } from "react-icons/fa";
+import { FaAngleDown, FaBars } from "react-icons/fa";
 import { SiNike, SiAdidas, SiPuma, SiReebok, SiMlb } from "react-icons/si";
-import { BsCart4, BsBagCheck } from "react-icons/bs";
+import { BsCart4 } from "react-icons/bs";
 import { GiConverseShoe } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
-import { FiSettings } from "react-icons/fi";
-import { styled, alpha } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
+import navbarConfig from "../../Utils/navbarConfig";
+import menuUserConfig from "../../Utils/menuUserConfig";
 import "./Header.css";
+import SearchInput from "../SearchInput/SearchInput";
 
 const brands = [
   {
@@ -69,88 +70,6 @@ const categories = [
     href: "#",
   },
 ];
-const resources = [
-  {
-    name: "New products",
-    href: "#",
-  },
-  {
-    name: "Special price",
-    href: "#",
-  },
-  {
-    name: "Events",
-    href: "#",
-  },
-  {
-    name: "Store list",
-    href: "#",
-  },
-  {
-    name: "About",
-    href: "#",
-  },
-  {
-    name: "Contact",
-    href: "#",
-  },
-];
-const forUser = [
-  {
-    name: "Your profile",
-    href: "#",
-    icon: FaRegUser,
-  },
-  {
-    name: "Ordered",
-    href: "#",
-    icon: BsBagCheck,
-  },
-  {
-    name: "Settings",
-    href: "#",
-    icon: FiSettings,
-  },
-];
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "auto",
-  // [theme.breakpoints.up("sm")]: {
-  //   marginLeft: theme.spacing(1),
-  //   width: "auto",
-  // },
-}));
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "10ch",
-      "&:focus": {
-        width: "12ch",
-      },
-    },
-  },
-}));
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -170,7 +89,7 @@ export default function Header({ onHandleCart }) {
             </Popover.Button>
           </div>
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="#">
+            <a href="/#">
               <span className="sr-only">Workflow</span>
               <img
                 className="h-8 w-auto sm:h-10"
@@ -289,25 +208,17 @@ export default function Header({ onHandleCart }) {
                 </>
               )}
             </Popover>
-            {resources.map((item) => (
-              <a
-                href={item.href}
+            {navbarConfig.map((item) => (
+              <NavLink
+                to={`/${item.href}`}
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 {item.name}
-              </a>
+              </NavLink>
             ))}
           </Popover.Group>
           <div className="hidden md:block">
-            <Search>
-              <SearchIconWrapper>
-                <FaSearch />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
+            <SearchInput/>
           </div>
 
           {user ? (
@@ -343,7 +254,7 @@ export default function Header({ onHandleCart }) {
                 leaveTo="transform opacity-0 scale-95"
               >
                 <Menu.Items className="origin-top-right absolute positionMenu mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20">
-                  {forUser.map((item) => (
+                  {menuUserConfig.map((item) => (
                     <Menu.Item>
                       {({ active }) => (
                         <a
@@ -362,7 +273,7 @@ export default function Header({ onHandleCart }) {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href="#"
+                        href="/#"
                         className={classNames(
                           active ? "bg-gray-100" : "",
                           "block px-4 py-2 text-sm text-gray-700 text-center"
@@ -378,13 +289,13 @@ export default function Header({ onHandleCart }) {
           ) : (
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
               <a
-                href="#"
+                href="/#"
                 className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Sign in
               </a>
               <a
-                href="#"
+                href="/#"
                 className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
               >
                 Sign up
@@ -405,7 +316,7 @@ export default function Header({ onHandleCart }) {
       >
         <Popover.Panel
           focus
-          className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-10"
+          className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-20"
         >
           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
             <div className="pt-5 pb-6 px-5">
@@ -424,15 +335,7 @@ export default function Header({ onHandleCart }) {
                   />
                 </div>
               </div>
-              <Search>
-                <SearchIconWrapper>
-                  <FaSearch />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
+              <SearchInput/>
               <div className="mt-6">
                 <h3 className="mb-4 text-center">Brands</h3>
                 <nav className="grid grid-cols-2 gap-x-32 gapItem">
@@ -472,14 +375,14 @@ export default function Header({ onHandleCart }) {
             </div>
             <div className="py-6 px-5 space-y-6">
               <div className="grid grid-cols-2 gap-y-4 gap-x-32">
-                {resources.map((item) => (
-                  <a
+                {navbarConfig.map((item) => (
+                  <NavLink
                     key={item.name}
-                    href={item.href}
+                    to={`/${item.href}`}
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                   >
                     {item.name}
-                  </a>
+                  </NavLink>
                 ))}
               </div>
               {user ? (
@@ -487,7 +390,7 @@ export default function Header({ onHandleCart }) {
               ) : (
                 <div>
                   <a
-                    href="#"
+                    href="/#"
                     className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                   >
                     Sign up
@@ -495,7 +398,7 @@ export default function Header({ onHandleCart }) {
                   <p className="mt-6 text-center text-base font-medium text-gray-500">
                     Existing customer?{" "}
                     <a
-                      href="#"
+                      href="/#"
                       className="text-indigo-600 hover:text-indigo-500"
                     >
                       Sign in

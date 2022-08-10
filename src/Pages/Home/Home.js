@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
     <div><Carousel/></div>
-    <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 text-center">Sản phẩm mới</h1>
+    <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 text-center mt-6">Sản phẩm mới</h1>
     <div><ProductList/></div>
     </>
   )

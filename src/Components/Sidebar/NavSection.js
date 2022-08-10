@@ -25,6 +25,7 @@ export default function NavSection({ navConfig, ...other }) {
               to={item.href}
               primary={item.title}
               icon={item.icon}
+              className="w-full"
             />
           </ListItemButton>
         ))}

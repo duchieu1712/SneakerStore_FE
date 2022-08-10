@@ -7,6 +7,7 @@ import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { FaBars } from "react-icons/fa";
+import SearchInput from "../../Components/SearchInput/SearchInput";
 
 export default function AdminLayout(props) {
   const [navOpen, setNavOpen] = useState(true);
@@ -29,8 +30,9 @@ export default function AdminLayout(props) {
             <FaBars />
           </IconButton>
           <Typography variant="h6" noWrap component="div"  sx={{ marginLeft: { xs: '0', sm: '300px' } }}>
-            Responsive drawer
+            Sneaker Store
           </Typography>
+          <SearchInput/>
         </Toolbar>
       </AppBar>
       <Sidebar

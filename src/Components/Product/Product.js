@@ -1,10 +1,10 @@
 import React from 'react'
-import './Products.css'
+import './Product.css'
 
-export default function Products({product}) {
+export default function Product({product}) {
     return (
        <div key={product.id} href={product.href} className="item p-2 ">
-            <a className="group">
+            <a className="group" href='#'>
               <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
                 <img
                   src={product.imageSrc}

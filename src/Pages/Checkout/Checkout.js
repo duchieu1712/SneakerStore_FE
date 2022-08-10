@@ -2,6 +2,8 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import {FaTrashAlt} from "react-icons/fa"
+
 const products = [
   {
     id: 1,
@@ -65,7 +67,7 @@ export default function Checkout() {
         <div className="d-block md:flex">
           <div className="w-full md:w-1/2 px-6">
             <div>
-              <h2 className="py-5">Contact Information</h2>
+              <h2 className="py-5 text-xl font-medium">Contact Information</h2>
               <Box sx={{ width: "100%" }}>
                 <Grid
                   container
@@ -116,22 +118,25 @@ export default function Checkout() {
               </Box>
             </div>
             <div>
-              <h2 className="py-5">Delivery method</h2>
+              <h2 className="py-5 text-xl font-medium">Delivery method</h2>
               <div className="flex w-full justify-between">
                 {delivery.map((item) => (
                   <button className="w-64 rounded-md border border-gray-200 p-5 text-left focus:border-blue-700 focus:border-2">
                     <h3 className="text-lg font-bold">{item.name}</h3>
                     <p className="text-xs mb-5">{item.estimate}</p>
-                    <h4 className="text-base font-medium text-gray-900">{item.price}</h4>
+                    <h4 className="text-base font-medium text-gray-900">
+                      {item.price}
+                    </h4>
                   </button>
                 ))}
               </div>
             </div>
           </div>
           <div className="w-full md:w-1/2 px-6">
-            <h2 className="py-5">Order sumary</h2>
-            <div className="rounded-md border border-gray-200 p-5">
-              <ul role="list" className="-my-6 divide-y divide-gray-200 mb-2">
+            <h2 className="py-5 text-xl font-medium">Order sumary</h2>
+            <div className="rounded-md border border-gray-200 p-5 divide-y divide-gray-200">
+              {/* // eslint-disable-next-line */}
+              <ul className="-my-6 divide-y divide-gray-200 mb-2">
                 {products.map((product) => (
                   <li key={product.id} className="flex py-6">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -159,10 +164,11 @@ export default function Checkout() {
                           Amount {product.quantity}
                         </p>
 
-                        <div className="flex">
+                        <div className="flex items-center">
+                          <FaTrashAlt/>
                           <button
                             type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className="font-medium text-indigo-600 hover:text-indigo-500 ml-1"
                           >
                             Remove
                           </button>
@@ -172,7 +178,24 @@ export default function Checkout() {
                   </li>
                 ))}
               </ul>
-              <div></div>
+              <div className="mb-5">
+                <div className="flex justify-between my-3">
+                  <h4>Subtotal</h4>
+                  <p className="text-base font-medium text-gray-900">$100</p>
+                </div>
+                <div className="flex justify-between my-3">
+                  <h4>Shipping</h4>
+                  <p className="text-base font-medium text-gray-900">$5</p>
+                </div>
+                <div className="flex justify-between my-3">
+                  <h4>Taxes</h4>
+                  <p className="text-base font-medium text-gray-900">$10</p>
+                </div>
+                <div className="flex justify-between my-3">
+                  <h3 className="text-lg font-bold">Total</h3>
+                  <p className="text-lg font-bold text-gray-900">$115</p>
+                </div>
+              </div>
               <Button variant="contained" size="large" fullWidth>
                 Confirm order
               </Button>

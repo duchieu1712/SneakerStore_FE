@@ -1,14 +1,14 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import Products from '../Components/Products/Products'
 import AdminLayout from '../Layouts/AdminLayout/AdminLayout'
 import HomeLayout from '../Layouts/HomeLayout/HomeLayout'
 import Checkout from '../Pages/Checkout/Checkout'
 import Home from '../Pages/Home/Home'
 import ProductAdmin from '../Pages/ProductAdmin/ProductAdmin'
 import ProductDetail from '../Pages/ProductDetail/ProductDetail'
-import ProductFilters from '../Pages/ProductFilters/ProductFilters'
+import AllProducts from '../Pages/AllProducts/AllProducts'
 import UserAdmin from '../Pages/UserAdmin/UserAdmin'
+import SearchProduct from '../Pages/SearchProduct/SearchProduct'
 
 export default function Routers() {
     return (
@@ -16,8 +16,8 @@ export default function Routers() {
             <Routes>
                 <Route path="/" element={<HomeLayout/>}>
                     <Route path="/" element={<Home/>}/>
-                    <Route path="/product" element={<Products/>}/>
-                    <Route path='/productFilters' element={<ProductFilters/>} />
+                    <Route path='/allProducts' element={<AllProducts/>} />
+                    <Route path='/search/:key' element={<SearchProduct/>} />
                     <Route path='/productDetail' element={<ProductDetail/>} />
                     <Route path='/checkout' element={<Checkout/>} />
                 </Route>

@@ -1,7 +1,7 @@
 import React from "react";
 import NavSection from "./NavSection";
-
 import { Box, Divider, Drawer, Typography, Hidden } from "@mui/material";
+import "./Sidebar.css";
 
 const Sidebar = ({ onNavOpen, onNavClose, navConfig }) => {
   const content = (

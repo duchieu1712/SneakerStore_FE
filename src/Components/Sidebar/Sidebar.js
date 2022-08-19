@@ -7,7 +7,7 @@ const Sidebar = ({ onNavOpen, onNavClose, navConfig }) => {
   const content = (
     <Box
       height="100%"
-      width="270px"
+      width="250px"
       display="flex"
       flexDirection="column"
       boxShadow={3}
@@ -18,7 +18,7 @@ const Sidebar = ({ onNavOpen, onNavClose, navConfig }) => {
         alignItems="center"
         padding={"10px"}
       >
-        <h3 style={{ fontWeight: 700 }}>Brand</h3>
+        <h3 style={{ fontWeight: 700, color: "#007aff" }}>Sneaker Store</h3>
         <Typography variant="caption">version 1.0.0</Typography>
       </Box>
 

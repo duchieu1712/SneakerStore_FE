@@ -98,7 +98,7 @@ export default function Cart({onCartOpen, onCartClose}) {
                                     <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">Qty {product.quantity}</p>
+                                    <p className="text-gray-500">Amount {product.quantity}</p>
 
                                     <div className="flex">
                                       <button

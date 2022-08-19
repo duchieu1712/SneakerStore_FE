@@ -4,10 +4,10 @@ import Sidebar from "../../Components/Sidebar/Sidebar";
 import sidebarConfig from "../../Utils/sidebarConfig";
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { FaBars } from "react-icons/fa";
-import SearchInput from "../../Components/SearchInput/SearchInput";
 
 export default function AdminLayout(props) {
   const [navOpen, setNavOpen] = useState(true);
@@ -29,10 +29,9 @@ export default function AdminLayout(props) {
           >
             <FaBars />
           </IconButton>
-          <Typography variant="h6" noWrap component="div"  sx={{ marginLeft: { xs: '0', sm: '300px' } }}>
-            Sneaker Store
+          <Typography variant="h6" noWrap component="div"  sx={{ marginLeft: { xs: '0', sm: '300px' }, mr: 3 }}>
+            Sneaker Store Management
           </Typography>
-          <SearchInput/>
         </Toolbar>
       </AppBar>
       <Sidebar
@@ -42,7 +41,10 @@ export default function AdminLayout(props) {
         }}
         navConfig={sidebarConfig}
       />
-      <Outlet />
+      <Box sx={{ ml: { xs: '20px', sm: '280px' }, mt: '80px', mr: '20px'}}>
+        <Outlet />
+      </Box>
+      
     </>
   );
 }

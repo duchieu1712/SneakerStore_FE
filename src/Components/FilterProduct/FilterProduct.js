@@ -128,6 +128,12 @@ const products = [
 ];
 
 export default function FilterProduct() {
+  const handleFilter = (evt)=>{
+    let {value} = evt.target
+    
+    console.log(value);
+
+  }
   return (
     <section aria-labelledby="products-heading" className="pt-6 pb-24">
       <h2 id="products-heading" className="sr-only">
@@ -170,6 +176,7 @@ export default function FilterProduct() {
                             type="checkbox"
                             defaultChecked={option.checked}
                             className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                            onClick = {handleFilter}
                           />
                           <label
                             htmlFor={`filter-${section.id}-${optionIdx}`}

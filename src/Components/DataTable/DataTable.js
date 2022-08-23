@@ -41,6 +41,7 @@ export default function DataTable({rows, headCells, handleEditSelect}) {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  console.log(rows);
   const EnhancedTableToolbar = (props) => {
     const { numSelected } = props;
   

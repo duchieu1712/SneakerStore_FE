@@ -6,6 +6,7 @@ const initialState = {
   currentUser: currentUser,
   userList: [],
   user:{},
+  message: "",
   loading: false,
   error: null,
 };
@@ -16,7 +17,7 @@ const userReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "SIGNIN_SUCCESS": {
-      return { ...state, currentUser: action.payload.data, loading: false };
+      return { ...state, currentUser: action.payload.data.data, loading: false };
     }
     case "SIGNIN_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };
@@ -34,7 +35,7 @@ const userReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "GET_USERLIST_SUCCESS": {
-      return { ...state, userList: action.payload.data, loading: false };
+      return { ...state, userList: action.payload.data.data, loading: false };
     }
     case "GET_USERLIST_FAILURE": {
       return { ...state, error: action.payload.error, loading: false };
@@ -43,7 +44,7 @@ const userReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "GET_USER_SUCCESS": {
-      return { ...state, user: action.payload.data, loading: false };
+      return { ...state, user: action.payload.data.data, loading: false };
     }
     case "GET_USER_FAILURE": {
       return { ...state, error: action.payload.error, loading: false };

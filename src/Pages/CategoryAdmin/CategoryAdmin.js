@@ -6,7 +6,7 @@ import SearchInput from "../../Components/SearchInput/SearchInput";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
-import { addCategory, getCategories, updateCategory } from "../../Redux/Actions/category";
+import { addCategory, deleteCategory, getCategories, updateCategory } from "../../Redux/Actions/category";
 import { BsPlus } from "react-icons/bs";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
 
@@ -27,8 +27,10 @@ export default function CategoryAdmin() {
   const [key, setKey] = useState("");
   const [categoryObj, setCategoryObj] = useState({});
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
+  const [categoryDelete,setCategoryDelete] = useState([])
 
   useEffect(() => {
     dispatch(getCategories());
@@ -61,6 +63,10 @@ export default function CategoryAdmin() {
     setOpen(false);
     setCategoryObj({});
   };
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+    setCategoryDelete([]);
+  };
   const handleAddCategory = () => {
     setOpen(true);
     setIsUpdate(false)
@@ -73,6 +79,16 @@ export default function CategoryAdmin() {
       <TextField label="Category" size="small" value={categoryObj.name} onChange={handleChangeObj}/>
     </Box>
   );
+  const contentDelete = (
+    <Box>
+      Are you sure want to delete these categories {categoryDelete.map((item)=>{
+        return(
+          `${item} `
+        )
+      })} ???
+      
+    </Box>
+  );
   const handleDispatch = () => {
     if(isUpdate){
       dispatch(updateCategory(categoryObj.id,categoryObj))
@@ -80,6 +96,15 @@ export default function CategoryAdmin() {
       dispatch(addCategory(categoryObj))
     }
     handleClose();
+    setTimeout(handleOpenAlert, 2000)
+  }
+  const handleDeleteSelect = (select)=>{
+    setCategoryDelete(select)
+    setOpenDelete(true)
+  }
+  const handleDispatchDelete = ()=>{
+    dispatch(deleteCategory(categoryDelete))
+    handleCloseDelete();
     setTimeout(handleOpenAlert, 2000)
   }
   return (
@@ -98,6 +123,7 @@ export default function CategoryAdmin() {
         rows={categories}
         headCells={headCells}
         handleEditSelect={handleEditSelect}
+        handleDeleteSelect={handleDeleteSelect}
       />
       <ModalForm
         title={"Category"}
@@ -105,6 +131,13 @@ export default function CategoryAdmin() {
         handleClose={() => handleClose()}
         formInput={content}
         handleDispatch={handleDispatch}
+      />
+      <ModalForm
+        title={"Category Delete"}
+        open={openDelete}
+        handleClose={() => handleCloseDelete()}
+        formInput={contentDelete}
+        handleDispatch={handleDispatchDelete}
       />
       <StatusAlert message={message} error={error} openAlert={openAlert} onCloseAlert={handleCloseAlert}/>
     </div>

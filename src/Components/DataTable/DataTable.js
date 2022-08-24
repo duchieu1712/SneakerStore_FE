@@ -35,13 +35,12 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export default function DataTable({rows, headCells, handleEditSelect}) {
+export default function DataTable({rows, headCells, handleEditSelect,handleDeleteSelect}) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  console.log(rows);
   const EnhancedTableToolbar = (props) => {
     const { numSelected } = props;
   
@@ -81,7 +80,7 @@ export default function DataTable({rows, headCells, handleEditSelect}) {
   
         {numSelected > 0 ? (
           <Tooltip title="Delete">
-            <IconButton>
+            <IconButton onClick = {()=>{handleDeleteSelect(selected)}}>
               <MdDelete />
             </IconButton>
           </Tooltip>

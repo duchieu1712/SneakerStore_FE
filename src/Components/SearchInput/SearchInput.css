@@ -1,0 +1,7 @@
+.searchInput .MuiInputBase-root .MuiInputBase-input{
+    padding: 8px;
+}
+.searchInput {
+    display: flex;
+    align-items: center;
+}

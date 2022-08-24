@@ -128,10 +128,9 @@ const products = [
 ];
 
 export default function FilterProduct() {
-  const handleFilter = (evt)=>{
-    let {value} = evt.target
-    
-    console.log(value);
+
+  const handleClick =(e) => {
+    console.log(e.target.value);
 
   }
   return (
@@ -176,7 +175,7 @@ export default function FilterProduct() {
                             type="checkbox"
                             defaultChecked={option.checked}
                             className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                            onClick = {handleFilter}
+                            onClick={handleClick}
                           />
                           <label
                             htmlFor={`filter-${section.id}-${optionIdx}`}

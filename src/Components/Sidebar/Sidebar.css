@@ -4,3 +4,7 @@
 .MuiBox-root .MuiListItemButton-root {
     padding: 0;
 }
+.MuiListItemText-root .MuiListItemText-primary{
+    font-size: 14px;
+    font-weight: 600;
+}

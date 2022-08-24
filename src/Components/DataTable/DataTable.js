@@ -237,10 +237,11 @@ export default function DataTable({rows, headCells, handleEditSelect}) {
                       </TableCell>
                       {headCells.map((column) => {
                         const value = row[column.id];
+                        console.log(value);
                         return (
                           <TableCell>
-                            {headCells.format && typeof value === "number"
-                              ? headCells.format(value)
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
                               : value}
                           </TableCell>
                         );

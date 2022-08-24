@@ -59,10 +59,10 @@ const headCells = [
   {
     id: "status",
     format: (value) => {
-      if (value === "0") {
-        return "User";
+      if (value === 0) {
+        return "Normal";
       } else {
-        return "Admin";
+        return "Shopping";
       }
     },
     label: "Status",
@@ -122,28 +122,28 @@ export default function UserAdmin() {
         label="User name"
         size="small"
         fullWidth
-        value={userObj.name}
+        value={userObj.username}
         onChange={handleChangeObj("username")}
       />
       <TextField
         label="Email"
         size="small"
         fullWidth
-        value={userObj.name}
+        value={userObj.email}
         onChange={handleChangeObj("email")}
       />
       <TextField
         label="Phone number"
         size="small"
         fullWidth
-        value={userObj.name}
+        value={userObj.phone}
         onChange={handleChangeObj("phone")}
       />
       <TextField
         label="Address"
         size="small"
         fullWidth
-        value={userObj.name}
+        value={userObj.address}
         onChange={handleChangeObj("address")}
       />
       <Box sx={{display: "flex", justifyContent:"space-between", width: "100%"}}>

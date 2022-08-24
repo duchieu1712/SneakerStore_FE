@@ -128,8 +128,10 @@ const products = [
 ];
 
 export default function FilterProduct() {
+
   const handleClick =(e) => {
     console.log(e.target.value);
+
   }
   return (
     <section aria-labelledby="products-heading" className="pt-6 pb-24">

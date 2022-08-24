@@ -60,11 +60,11 @@ export const updateCategory = (id,data) => {
   };
 };
 
-export const deleteCategory = (id) => {
+export const deleteCategory = (data) => {
   return (dispatch) => {
     dispatch({ type: "DELETE_CATEGORY_REQUEST" });
     categoryAPI
-      .deleteCategory(id)
+      .deleteCategory(data)
       .then((result) => {
         dispatch({
           type: "DELETE_CATEGORY_SUCCESS",

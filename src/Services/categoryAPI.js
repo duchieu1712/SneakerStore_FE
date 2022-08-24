@@ -13,9 +13,9 @@ const categoryAPI = {
         const path = `/category/updateCategory/${id}`;
         return axiosClient.put(path, data);
     },
-    deleteCategory: (id) => {
-        const path = `/category/deleteCategory/${id}`;
-        return axiosClient.delete(path);
+    deleteCategory: (data) => {
+        const path = '/category/deleteCategory';
+        return axiosClient.delete(path,data);
     }
 }
 

@@ -20,7 +20,7 @@ const orderDetailReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "ADD_ORDERDETAIL_SUCCESS": {
-      return { ...state, loading: false, error: null };
+      return { ...state, loading: false, message: action.payload.data.message, error: null };
     }
     case "ADD_ORDERDETAIL_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };
@@ -30,7 +30,7 @@ const orderDetailReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "UPDATE_ORDERDETAIL_SUCCESS": {
-      return { ...state, loading: false, error: null };
+      return { ...state, loading: false, message: action.payload.data.message, error: null };
     }
     case "UPDATE_ORDERDETAIL_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };
@@ -40,7 +40,7 @@ const orderDetailReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "DELETE_ORDERDETAIL_SUCCESS": {
-      return { ...state, loading: false, error: null };
+      return { ...state, loading: false, message: action.payload.data.message, error: null };
     }
     case "DELETE_ORDERDETAIL_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };

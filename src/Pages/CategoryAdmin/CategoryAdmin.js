@@ -6,8 +6,9 @@ import SearchInput from "../../Components/SearchInput/SearchInput";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
-import { getCategories } from "../../Redux/Actions/category";
+import { addCategory, getCategories, updateCategory } from "../../Redux/Actions/category";
 import { BsPlus } from "react-icons/bs";
+import StatusAlert from "../../Components/StatusAlert/StatusAlert";
 
 const headCells = [
   {
@@ -24,15 +25,27 @@ const headCells = [
 export default function CategoryAdmin() {
   const dispatch = useDispatch();
   const [key, setKey] = useState("");
-  const [editSelect, setEditSelect] = useState({});
+  const [categoryObj, setCategoryObj] = useState({});
   const [open, setOpen] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
 
   useEffect(() => {
     dispatch(getCategories());
     // eslint-disable-next-line
   }, []);
-  const { categories } = useSelector((state) => state.categoryReducer);
-  console.log(categories);
+  const { categories, message, error } = useSelector((state) => state.categoryReducer);
+
+  const handleOpenAlert = () => {
+    setOpenAlert(true)
+  }
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenAlert(false);
+  };
   const handleChange = (e) => {
     setKey(e.target.value);
   };
@@ -40,19 +53,35 @@ export default function CategoryAdmin() {
     console.log(key);
   };
   const handleEditSelect = (select) => {
-    setEditSelect(select);
+    setCategoryObj(select);
     setOpen(true);
+    setIsUpdate(true)
   };
   const handleClose = () => {
     setOpen(false);
-    setEditSelect({});
+    setCategoryObj({});
   };
-  console.log(editSelect);
+  const handleAddCategory = () => {
+    setOpen(true);
+    setIsUpdate(false)
+  }
+  const handleChangeObj = (e) => {
+    setCategoryObj({...categoryObj, name:e.target.value})
+  }
   const content = (
     <Box sx={{mt:"20px"}}>
-      <TextField label="Category" size="small" value={editSelect.name}/>
+      <TextField label="Category" size="small" value={categoryObj.name} onChange={handleChangeObj}/>
     </Box>
   );
+  const handleDispatch = () => {
+    if(isUpdate){
+      dispatch(updateCategory(categoryObj.id,categoryObj))
+    }else{
+      dispatch(addCategory(categoryObj))
+    }
+    handleClose();
+    setTimeout(handleOpenAlert, 2000)
+  }
   return (
     <div>
       <div className="flex justify-between mb-2">
@@ -60,7 +89,7 @@ export default function CategoryAdmin() {
         onHandleChange={handleChange}
         onHandleSearch={handleSearch}
       />
-      <Button variant="contained" startIcon={<BsPlus />} onClick={() => setOpen(true)}>
+      <Button variant="contained" startIcon={<BsPlus />} onClick={handleAddCategory}>
         Add category
       </Button>
       </div>
@@ -75,7 +104,9 @@ export default function CategoryAdmin() {
         open={open}
         handleClose={() => handleClose()}
         formInput={content}
+        handleDispatch={handleDispatch}
       />
+      <StatusAlert message={message} error={error} openAlert={openAlert} onCloseAlert={handleCloseAlert}/>
     </div>
   );
 }

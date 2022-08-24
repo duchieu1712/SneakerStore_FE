@@ -20,7 +20,7 @@ const productReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "ADD_PRODUCT_SUCCESS": {
-      return { ...state, loading: false, error: null };
+      return { ...state, loading: false, message: action.payload.data.message, error: null };
     }
     case "ADD_PRODUCT_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };
@@ -30,17 +30,16 @@ const productReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "UPDATE_PRODUCT_SUCCESS": {
-      return { ...state, loading: false, error: null };
+      return { ...state, loading: false, message: action.payload.data.message, error: null };
     }
     case "UPDATE_PRODUCT_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };
     }
-
     case "DELETE_PRODUCT_REQUEST": {
       return { ...state, loading: true, error: null };
     }
     case "DELETE_PRODUCT_SUCCESS": {
-      return { ...state, loading: false, error: null };
+      return { ...state, loading: false, message: action.payload.data.message, error: null };
     }
     case "DELETE_PRODUCT_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };

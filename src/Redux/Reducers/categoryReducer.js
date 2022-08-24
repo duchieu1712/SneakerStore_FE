@@ -1,5 +1,6 @@
 const initialState = {
   categories: [],
+  message: null,
   loading: false,
   error: null,
 };
@@ -13,37 +14,37 @@ const categoryReducer = (state = initialState, action) => {
       return { ...state, loading: false, categories: action.payload.data.data };
     }
     case "GET_CATEGORIES_FAILURE": {
-        return {...state, loading: false, error: action.payload.error}
+        return {...state, loading: false, error: action.payload.error.message}
     }
 
     case "ADD_CATEGORY_REQUEST": {
         return {...state, loading: true, error: null}
     }
     case "ADD_CATEGORY_SUCCESS": {
-        return {...state, loading: false, error: null}
+        return {...state, loading: false, message: action.payload.data.message, error: null}
     }
     case "ADD_CATEGORY_FAILURE": {
-        return {...state, loading: false, error: action.payload.error}
+        return {...state, loading: false, error: action.payload.error.message}
     }
 
     case "UPDATE_CATEGORY_REQUEST": {
         return {...state, loading: true, error: null}
     }
     case "UPDATE_CATEGORY_SUCCESS": {
-        return {...state, loading: false, error: null}
+        return {...state, loading: false, message: action.payload.data.message, error: null}
     }
     case "UPDATE_CATEGORY_FAILURE": {
-        return {...state, loading: false, error: action.payload.error}
+        return {...state, loading: false, error: action.payload.error.message}
     }
 
     case "DELETE_CATEGORY_REQUEST": {
         return {...state, loading: true, error: null}
     }
     case "DELETE_CATEGORY_SUCCESS": {
-        return {...state, loading: false, error: null}
+        return {...state, loading: false, message: action.payload.data.message, error: null}
     }
     case "DELETE_CATEGORY_FAILURE": {
-        return {...state, loading: false, error: action.payload.error}
+        return {...state, loading: false, error: action.payload.error.message}
     }
     default:
         return state;

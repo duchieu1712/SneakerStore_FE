@@ -11,7 +11,7 @@ const categoryAPI = {
     },
     updateCategory: (id,data) => {
         const path = `/category/updateCategory/${id}`;
-        return axiosClient.patch(path, data);
+        return axiosClient.put(path, data);
     },
     deleteCategory: (id) => {
         const path = `/category/deleteCategory/${id}`;

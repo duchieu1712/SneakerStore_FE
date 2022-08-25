@@ -75,7 +75,7 @@ export default function CategoryAdmin() {
     setCategoryObj({...categoryObj, name:e.target.value})
   }
   const content = (
-    <Box sx={{mt:"20px"}}>
+    <Box>
       <TextField label="Category" size="small" value={categoryObj.name} onChange={handleChangeObj}/>
     </Box>
   );
@@ -104,6 +104,7 @@ export default function CategoryAdmin() {
   }
   const handleDispatchDelete = ()=>{
     dispatch(deleteCategory(categoryDelete))
+    console.log(categoryDelete);
     handleCloseDelete();
     setTimeout(handleOpenAlert, 2000)
   }

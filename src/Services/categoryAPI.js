@@ -15,7 +15,7 @@ const categoryAPI = {
     },
     deleteCategory: (data) => {
         const path = '/category/deleteCategory';
-        return axiosClient.delete(path,data);
+        return axiosClient.post(path,data);
     }
 }
 

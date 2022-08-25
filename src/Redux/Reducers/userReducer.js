@@ -17,7 +17,7 @@ const userReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "SIGNIN_SUCCESS": {
-      return { ...state, currentUser: action.payload.data.data, loading: false };
+      return { ...state, currentUser: action.payload.data.data, message: action.payload.data.message, loading: false };
     }
     case "SIGNIN_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };
@@ -26,7 +26,7 @@ const userReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "SIGNUP_SUCCESS": {
-      return { ...state, currentUser: action.payload.data, loading: false };
+      return { ...state, currentUser: action.payload.data, message: action.payload.data.message, loading: false };
     }
     case "SIGNUP_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };

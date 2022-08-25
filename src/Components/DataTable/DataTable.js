@@ -236,7 +236,6 @@ export default function DataTable({rows, headCells, handleEditSelect,handleDelet
                       </TableCell>
                       {headCells.map((column) => {
                         const value = row[column.id];
-                        console.log(value);
                         return (
                           <TableCell>
                             {column.format && typeof value === "number"

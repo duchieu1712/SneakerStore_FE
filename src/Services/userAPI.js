@@ -15,11 +15,11 @@ const userAPI = {
     },
     updateUser: (id,data) => {
         const path = `/user/updateUser/${id}`;
-        return axiosClient.patch(path, data);
+        return axiosClient.put(path, data);
     },
     deleteUser: (id) => {
         const path = `/user/deleteUser/${id}`;
-        return axiosClient.delete(path);
+        return axiosClient.post(path);
     }
 }
 

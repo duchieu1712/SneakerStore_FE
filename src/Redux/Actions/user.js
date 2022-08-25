@@ -87,17 +87,16 @@ export const getUser = (userID) => {
 
 
 
-export const updateUser = (values) => {
+export const updateUser = (id,values) => {
   return (dispatch) => {
     dispatch({ type: "UPDATE_USERPROFILE_REQUEST" });
     userAPI
-      .updateUser(values)
+      .updateUser(id,values)
       .then((result) => {
         dispatch({
           type: "UPDATE_USERPROFILE_SUCCESS",
           payload: { data: result.data },
         });
-        alert("Chỉnh sửa hồ sơ thành công !!!");
       })
       .catch((error) => {
         dispatch({
@@ -118,14 +117,12 @@ export const changePassword = (userID, values) => {
           type: "CHANGE_PASSWORD_SUCCESS",
           payload: { data: result.data },
         });
-        alert("Đổi mật khẩu thành công !!!");
       })
       .catch((error) => {
         dispatch({
           type: "CHANGE_PASSWORD_FAILURE",
           payload: { error: error.response.data },
         });
-        alert("Đổi mật khẩu không thành công !!!");
       });
   };
 };

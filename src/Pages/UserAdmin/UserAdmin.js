@@ -12,7 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { BsPlus } from "react-icons/bs";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
-import { getUserList } from "../../Redux/Actions/user";
+import { getUserList, signUp, updateUser } from "../../Redux/Actions/user";
 
 const headCells = [
   {
@@ -49,7 +49,7 @@ const headCells = [
     id: "user_type",
     format: (value) => {
       if (value === "0") {
-        return "User";
+        return "Customer";
       } else {
         return "Admin";
       }
@@ -117,7 +117,7 @@ export default function UserAdmin() {
     setUserObj((obj) => ({ ...obj, [type]: e.target.value }));
   };
   const content = (
-    <Box component="form" sx={{ mt: "20px", "& > :not(style)": { m: 1 } }}>
+    <Box component="form" sx={{ "& > :not(style)": { m: 1 } }}>
       <TextField
         label="User name"
         size="small"
@@ -131,6 +131,14 @@ export default function UserAdmin() {
         fullWidth
         value={userObj.email}
         onChange={handleChangeObj("email")}
+      />
+      <TextField
+        label="Password"
+        size="small"
+        fullWidth
+        type={"password"}
+        value={userObj.password}
+        onChange={handleChangeObj("password")}
       />
       <TextField
         label="Phone number"
@@ -156,8 +164,8 @@ export default function UserAdmin() {
           onChange={handleChangeObj("user_type")}
           label="User type"
         >
-          <MenuItem value={"0"}>Customer</MenuItem>
-          <MenuItem value={"1"}>Admin</MenuItem>
+          <MenuItem value={"Customer"}>Customer</MenuItem>
+          <MenuItem value={"Admin"}>Admin</MenuItem>
         </Select>
       </FormControl>
       <FormControl sx={{ width:"49%" }} size="small">
@@ -180,11 +188,9 @@ export default function UserAdmin() {
   );
   const handleDispatch = () => {
     if (isUpdate) {
-      // dispatch(updateCategory(userObj.id,userObj))
-      console.log(userObj.id, userObj);
+      dispatch(updateUser(userObj.id,userObj))
     } else {
-      // dispatch(addCategory(userObj))
-      console.log(userObj);
+      dispatch(signUp(userObj))
     }
     handleClose();
     setTimeout(handleOpenAlert, 2000);

@@ -6,12 +6,12 @@ const TokenService = {
 
   getLocalAccessToken: () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    return user?.access;
+    return user?.token;
   },
 
   updateLocalAccessToken: (token) => {
     let user = JSON.parse(localStorage.getItem("user"));
-    user.access = token;
+    user.token = token;
     localStorage.setItem("user", JSON.stringify(user));
   },
 

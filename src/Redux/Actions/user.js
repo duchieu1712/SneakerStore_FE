@@ -9,7 +9,7 @@ export const signIn = (user) => {
     userAPI
       .signIn(user)
       .then((result) => {
-        TokenService.setUser(result.data);
+        TokenService.setUser(result.data.data);
         dispatch({
           type: "SIGNIN_SUCCESS",
           payload: { data: result.data },
@@ -17,7 +17,7 @@ export const signIn = (user) => {
       })
       .catch((error) => {
         dispatch({
-          type: "SIGNIN_FAILUREURE",
+          type: "SIGNIN_FAILURE",
           payload: { error: error.response.data },
         });
       });

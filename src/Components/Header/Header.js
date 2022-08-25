@@ -11,6 +11,8 @@ import navbarConfig from "../../Utils/navbarConfig";
 import menuUserConfig from "../../Utils/menuUserConfig";
 import "./Header.css";
 import SearchInput from "../SearchInput/SearchInput";
+import { useSelector } from "react-redux";
+import TokenService from "../../Services/serviceToken";
 
 const brands = [
   {
@@ -76,8 +78,13 @@ function classNames(...classes) {
 }
 
 export default function Header({ onHandleCart }) {
-  const user = true;
-
+  const { currentUser } = useSelector(
+    (state) => state.userReducer
+  );
+  const signOut = () => {
+    TokenService.removeUser();
+    window.location.href = "/";
+  };
   return (
     <Popover className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -221,7 +228,7 @@ export default function Header({ onHandleCart }) {
             <SearchInput/>
           </div>
 
-          {user ? (
+          {currentUser ? (
             <Menu
               as="div"
               className="md:flex items-center justify-end md:flex-1 lg:w-0"
@@ -278,6 +285,7 @@ export default function Header({ onHandleCart }) {
                           active ? "bg-gray-100" : "",
                           "block px-4 py-2 text-sm text-gray-700 text-center"
                         )}
+                        onClick={signOut}
                       >
                         Sign out
                       </a>
@@ -288,18 +296,18 @@ export default function Header({ onHandleCart }) {
             </Menu>
           ) : (
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-              <a
-                href="/#"
+              <NavLink
+                to="/auth/signIn"
                 className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Sign in
-              </a>
-              <a
-                href="/#"
+              </NavLink>
+              <NavLink
+                to="/auth/signUp"
                 className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
               >
                 Sign up
-              </a>
+              </NavLink>
             </div>
           )}
         </div>
@@ -385,24 +393,24 @@ export default function Header({ onHandleCart }) {
                   </NavLink>
                 ))}
               </div>
-              {user ? (
+              {currentUser ? (
                 <div className="mt-6"></div>
               ) : (
                 <div>
-                  <a
-                    href="/#"
+                  <NavLink
+                    to="/auth/signUp"
                     className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                   >
                     Sign up
-                  </a>
+                  </NavLink>
                   <p className="mt-6 text-center text-base font-medium text-gray-500">
                     Existing customer?{" "}
-                    <a
-                      href="/#"
+                    <NavLink
+                      to="/auth/signIn"
                       className="text-indigo-600 hover:text-indigo-500"
                     >
                       Sign in
-                    </a>
+                    </NavLink>
                   </p>
                 </div>
               )}

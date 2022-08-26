@@ -264,8 +264,8 @@ export default function Header({ onHandleCart }) {
                   {menuUserConfig.map((item) => (
                     <Menu.Item>
                       {({ active }) => (
-                        <a
-                          href={item.href}
+                        <NavLink
+                          to={item.href}
                           className="p-3 flex items-start rounded-lg hover:bg-gray-50"
                         >
                           <item.icon
@@ -273,7 +273,7 @@ export default function Header({ onHandleCart }) {
                             aria-hidden="true"
                           />
                           <p>{item.name}</p>
-                        </a>
+                        </NavLink>
                       )}
                     </Menu.Item>
                   ))}

@@ -15,7 +15,7 @@ const menuUserConfig = [
     },
     {
       name: "Settings",
-      href: "#",
+      href: "/settings",
       icon: FiSettings,
     },
   ];

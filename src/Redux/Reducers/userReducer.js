@@ -49,6 +49,24 @@ const userReducer = (state = initialState, action) => {
     case "GET_USER_FAILURE": {
       return { ...state, error: action.payload.error, loading: false };
     }
+    case "UPDATE_USERPROFILE_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "UPDATE_USERPROFILE_SUCCESS": {
+      return { ...state, user: action.payload.data.data, message: action.payload.data.message, loading: false };
+    }
+    case "UPDATE_USERPROFILE_FAILURE": {
+      return { ...state, error: action.payload.error, loading: false };
+    }
+    case "DELETE_USER_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "DELETE_USER_SUCCESS": {
+      return { ...state, message: action.payload.data.message, loading: false };
+    }
+    case "DELETE_USER_FAILURE": {
+      return { ...state, error: action.payload.error, loading: false };
+    }
     default:
       return state;
   }

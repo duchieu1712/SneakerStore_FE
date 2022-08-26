@@ -6,13 +6,18 @@ import SearchInput from "../../Components/SearchInput/SearchInput";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import { BsPlus } from "react-icons/bs";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
-import { getUserList, signUp, updateUser } from "../../Redux/Actions/user";
+import {
+  deleteUser,
+  getUserList,
+  signUp,
+  updateUser,
+} from "../../Redux/Actions/user";
 
 const headCells = [
   {
@@ -75,6 +80,8 @@ export default function UserAdmin() {
   const [open, setOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
+  const [userDelete, setUserDelete] = useState([]);
+  const [openDelete, setOpenDelete] = useState(false);
 
   useEffect(() => {
     dispatch(getUserList());
@@ -154,43 +161,65 @@ export default function UserAdmin() {
         value={userObj.address}
         onChange={handleChangeObj("address")}
       />
-      <Box sx={{display: "flex", justifyContent:"space-between", width: "100%"}}>
-        <FormControl sx={{ width:"49%" }} size="small">
-        <InputLabel id="demo-simple-select-label">User type</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={userObj.user_type}
-          onChange={handleChangeObj("user_type")}
-          label="User type"
-        >
-          <MenuItem value={"Customer"}>Customer</MenuItem>
-          <MenuItem value={"Admin"}>Admin</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl sx={{ width:"49%" }} size="small">
-        <InputLabel id="demo-simple-select-label">Status</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={userObj.status}
-          onChange={handleChangeObj("status")}
-          label="Status"
-        >
-          <MenuItem value={0}>Normal</MenuItem>
-          <MenuItem value={1}>Shopping</MenuItem>
-        </Select>
-      </FormControl>
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+      >
+        <FormControl sx={{ width: "49%" }} size="small">
+          <InputLabel id="demo-simple-select-label">User type</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={userObj.user_type}
+            onChange={handleChangeObj("user_type")}
+            label="User type"
+          >
+            <MenuItem value={"Customer"}>Customer</MenuItem>
+            <MenuItem value={"Admin"}>Admin</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl sx={{ width: "49%" }} size="small">
+          <InputLabel id="demo-simple-select-label">Status</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={userObj.status}
+            onChange={handleChangeObj("status")}
+            label="Status"
+          >
+            <MenuItem value={0}>Normal</MenuItem>
+            <MenuItem value={1}>Shopping</MenuItem>
+          </Select>
+        </FormControl>
       </Box>
-
-      
     </Box>
   );
+  const contentDelete = (
+    <Box>
+      Are you sure want to delete these users "{" "}
+      {userDelete.map((item) => {
+        return `${item} `;
+      })}{" "}
+      " ???
+    </Box>
+  );
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+    setUserDelete([]);
+  };
+  const handleDeleteSelect = (select) => {
+    setUserDelete(select);
+    setOpenDelete(true);
+  };
+  const handleDispatchDelete = () => {
+    dispatch(deleteUser(userDelete));
+    handleCloseDelete();
+    setTimeout(handleOpenAlert, 2000);
+  };
   const handleDispatch = () => {
     if (isUpdate) {
-      dispatch(updateUser(userObj.id,userObj))
+      dispatch(updateUser(userObj.id, userObj));
     } else {
-      dispatch(signUp(userObj))
+      dispatch(signUp(userObj));
     }
     handleClose();
     setTimeout(handleOpenAlert, 2000);
@@ -215,6 +244,7 @@ export default function UserAdmin() {
         rows={userList}
         headCells={headCells}
         handleEditSelect={handleEditSelect}
+        handleDeleteSelect={handleDeleteSelect}
       />
       <ModalForm
         title={"User"}
@@ -222,6 +252,13 @@ export default function UserAdmin() {
         handleClose={() => handleClose()}
         formInput={content}
         handleDispatch={handleDispatch}
+      />
+      <ModalForm
+        title={"User Delete"}
+        open={openDelete}
+        handleClose={() => handleCloseDelete()}
+        formInput={contentDelete}
+        handleDispatch={handleDispatchDelete}
       />
       <StatusAlert
         message={message}

@@ -1,8 +1,13 @@
 import { FaUserAlt, FaTags, FaPercentage, FaClipboardList } from "react-icons/fa";
 import { GiConverseShoe } from "react-icons/gi";
-import { MdCategory, MdDeliveryDining, MdShoppingCart, MdSettings } from "react-icons/md";
+import { MdCategory, MdDeliveryDining, MdShoppingCart, MdSettings, MdDashboard } from "react-icons/md";
 
 const sidebarConfig = [
+  {
+    href: "/admin",
+    icon: <MdDashboard style={{ fontSize: "18px" }} />,
+    title: "Dashboard",
+  },
   {
     href: "/admin/user",
     icon: <FaUserAlt style={{ fontSize: "17px" }} />,

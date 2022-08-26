@@ -81,11 +81,11 @@ export default function CategoryAdmin() {
   );
   const contentDelete = (
     <Box>
-      Are you sure want to delete these categories {categoryDelete.map((item)=>{
+      Are you sure want to delete these categories "{categoryDelete.map((item)=>{
         return(
           `${item} `
         )
-      })} ???
+      })} " ???
       
     </Box>
   );

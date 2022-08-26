@@ -1,6 +1,10 @@
 import {axiosClient} from "../Utils/axiosClient";
 
 const userAPI = {
+    getUserById: (id) => {
+        const path = `/user/getUserById/${id}`;
+        return axiosClient.get(path);
+    },
     getUserList: () => {
         const path = "/user/getUserList";
         return axiosClient.get(path);
@@ -17,9 +21,9 @@ const userAPI = {
         const path = `/user/updateUser/${id}`;
         return axiosClient.put(path, data);
     },
-    deleteUser: (id) => {
-        const path = `/user/deleteUser/${id}`;
-        return axiosClient.post(path);
+    deleteUser: (data) => {
+        const path = `/user/deleteUser`;
+        return axiosClient.post(path, data);
     }
 }
 

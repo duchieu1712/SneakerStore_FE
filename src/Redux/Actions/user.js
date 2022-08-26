@@ -65,11 +65,11 @@ export const getUserList = () => {
   };
 };
 
-export const getUser = (userID) => {
+export const getUserById = (id) => {
   return (dispatch) => {
     dispatch({ type: "GET_USER_REQUEST" });
     userAPI
-      .getUser(userID)
+      .getUserById(id)
       .then((result) => {
         dispatch({
           type: "GET_USER_SUCCESS",
@@ -85,8 +85,6 @@ export const getUser = (userID) => {
   };
 };
 
-
-
 export const updateUser = (id,values) => {
   return (dispatch) => {
     dispatch({ type: "UPDATE_USERPROFILE_REQUEST" });
@@ -101,6 +99,26 @@ export const updateUser = (id,values) => {
       .catch((error) => {
         dispatch({
           type: "UPDATE_USERPROFILE_FAILURE",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};
+
+export const deleteUser = (data) => {
+  return (dispatch) => {
+    dispatch({ type: "DELETE_USER_REQUEST" });
+    userAPI
+      .deleteUser(data)
+      .then((result) => {
+        dispatch({
+          type: "DELETE_USER_SUCCESS",
+          payload: { data: result.data },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "DELETE_USER_FAILURE",
           payload: { error: error.response.data },
         });
       });

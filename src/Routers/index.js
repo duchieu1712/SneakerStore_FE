@@ -20,6 +20,8 @@ import AuthLayout from "../Layouts/AuthLayout/AuthLayout";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import AdminRoute from "../Guards/AdminRoute";
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import UserSettings from "../Pages/UserSettings/UserSettings";
 
 export default function Routers() {
   return (
@@ -30,7 +32,7 @@ export default function Routers() {
           <Route path="/auth/signUp" element={<SignUp />} />
         </Route>
       </Routes>
-      
+
       <Routes>
         <Route path="/" element={<HomeLayout />}>
           <Route path="/" element={<Home />} />
@@ -38,22 +40,94 @@ export default function Routers() {
           <Route path="/search/:key" element={<SearchProduct />} />
           <Route path="/productDetail" element={<ProductDetail />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/settings" element={<UserSettings />} />
         </Route>
       </Routes>
 
-      {/* <Routes>
+      <Routes>
         <Route path="/admin" element={<AdminLayout />}>
-          <AdminRoute path="/admin/user" element={<UserAdmin />} />
-          <AdminRoute path="/admin/product" element={<ProductAdmin />} />
-          <AdminRoute path="/admin/category" element={<CategoryAdmin />} />
-          <AdminRoute path="/admin/brand" element={<BrandAdmin />} />
-          <AdminRoute path="/admin/delivery" element={<DeliveryAdmin />} />
-          <AdminRoute path="/admin/discount" element={<DiscountAdmin />} />
-          <AdminRoute path="/admin/order" element={<OrderAdmin />} />
-          <AdminRoute path="/admin/orderDetail" element={<OrderDetailAdmin />} />
-          <AdminRoute path="/admin/settings" element={<AdminSettings />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <Dashboard />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/user"
+            element={
+              <AdminRoute>
+                <UserAdmin />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/product"
+            element={
+              <AdminRoute>
+                <ProductAdmin />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/category"
+            element={
+              <AdminRoute>
+                <CategoryAdmin />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/brand"
+            element={
+              <AdminRoute>
+                <BrandAdmin />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/delivery"
+            element={
+              <AdminRoute>
+                <DeliveryAdmin />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/discount"
+            element={
+              <AdminRoute>
+                <DiscountAdmin />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/order"
+            element={
+              <AdminRoute>
+                <OrderAdmin />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/orderDetail"
+            element={
+              <AdminRoute>
+                <OrderDetailAdmin />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <AdminRoute>
+                <AdminSettings />
+              </AdminRoute>
+            }
+          />
         </Route>
-      </Routes> */}
+      </Routes>
     </BrowserRouter>
   );
 }

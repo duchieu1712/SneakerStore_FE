@@ -10,7 +10,6 @@ const Sidebar = ({ onNavOpen, onNavClose, navConfig }) => {
       width="250px"
       display="flex"
       flexDirection="column"
-      boxShadow={3}
     >
       <Box
         display="flex"
@@ -36,6 +35,7 @@ const Sidebar = ({ onNavOpen, onNavClose, navConfig }) => {
           open={onNavOpen}
           onClose={onNavClose}
           variant="temporary"
+          elevation={3}
         >
           {content}
         </Drawer>
@@ -43,7 +43,6 @@ const Sidebar = ({ onNavOpen, onNavClose, navConfig }) => {
       <Hidden mdDown>
         <Drawer
           anchor="left"
-          // classes={{ paper: classes.desktopDrawer }}
           open
           variant="persistent"
         >

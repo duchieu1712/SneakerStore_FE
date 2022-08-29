@@ -238,7 +238,7 @@ export default function DataTable({rows, headCells, handleEditSelect,handleDelet
                         const value = row[column.id];
                         if(column.id === "image"){
                           return(
-                            <TableCell key={index}>
+                            <TableCell width="20%" key={index}>
                               <img src={value} alt="image"/>
                             </TableCell>
                           )

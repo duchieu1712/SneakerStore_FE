@@ -11,7 +11,7 @@ const brandAPI = {
     },
     updateBrand: (id,form_data) => {
         const path = `/brand/updateBrand/${id}`;
-        return axiosClient.patch(path, form_data);
+        return axiosClient.post(path, form_data);
     },
     deleteBrand: (data) => {
         const path = `/brand/deleteBrand`;

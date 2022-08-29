@@ -29,7 +29,7 @@ const userReducer = (state = initialState, action) => {
       return { ...state, currentUser: action.payload.data, message: action.payload.data.message, loading: false };
     }
     case "SIGNUP_FAILURE": {
-      return { ...state, loading: false, error: action.payload.error };
+      return { ...state, loading: false, error: action.payload.error.message };
     }
     case "GET_USERLIST_REQUEST": {
       return { ...state, loading: true, error: null };
@@ -38,7 +38,7 @@ const userReducer = (state = initialState, action) => {
       return { ...state, userList: action.payload.data.data, loading: false };
     }
     case "GET_USERLIST_FAILURE": {
-      return { ...state, error: action.payload.error, loading: false };
+      return { ...state, error: action.payload.error.message, loading: false };
     }
     case "GET_USER_REQUEST": {
       return { ...state, loading: true, error: null };
@@ -47,16 +47,34 @@ const userReducer = (state = initialState, action) => {
       return { ...state, user: action.payload.data.data, loading: false };
     }
     case "GET_USER_FAILURE": {
-      return { ...state, error: action.payload.error, loading: false };
+      return { ...state, error: action.payload.error.message, loading: false };
     }
     case "UPDATE_USERPROFILE_REQUEST": {
       return { ...state, loading: true, error: null };
     }
     case "UPDATE_USERPROFILE_SUCCESS": {
-      return { ...state, user: action.payload.data.data, message: action.payload.data.message, loading: false };
+      return { ...state, message: action.payload.data.message, loading: false };
     }
     case "UPDATE_USERPROFILE_FAILURE": {
-      return { ...state, error: action.payload.error, loading: false };
+      return { ...state, error: action.payload.error.message, loading: false };
+    }
+    case "CHANGE_PASSWORD_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "CHANGE_PASSWORD_SUCCESS": {
+      return { ...state, message: action.payload.data.message, loading: false };
+    }
+    case "CHANGE_PASSWORD_FAILURE": {
+      return { ...state, error: action.payload.error.message, loading: false };
+    }
+    case "FORGOT_PASSWORD_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "FORGOT_PASSWORD_SUCCESS": {
+      return { ...state, message: action.payload.data.message, loading: false };
+    }
+    case "FORGOT_PASSWORD_FAILURE": {
+      return { ...state, error: action.payload.error.message, loading: false };
     }
     case "DELETE_USER_REQUEST": {
       return { ...state, loading: true, error: null };
@@ -65,7 +83,7 @@ const userReducer = (state = initialState, action) => {
       return { ...state, message: action.payload.data.message, loading: false };
     }
     case "DELETE_USER_FAILURE": {
-      return { ...state, error: action.payload.error, loading: false };
+      return { ...state, error: action.payload.error.message, loading: false };
     }
     default:
       return state;

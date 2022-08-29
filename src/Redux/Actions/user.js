@@ -144,3 +144,23 @@ export const changePassword = (userID, values) => {
       });
   };
 };
+
+export const forgotPassword = (values) => {
+  return (dispatch) => {
+    dispatch({ type: "FORGOT_PASSWORD_REQUEST" });
+    userAPI
+      .forgotPassword(values)
+      .then((result) => {
+        dispatch({
+          type: "FORGOT_PASSWORD_SUCCESS",
+          payload: { data: result.data },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "FORGOT_PASSWORD_FAILURE",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};

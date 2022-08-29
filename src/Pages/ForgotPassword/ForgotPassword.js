@@ -1,18 +1,15 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { GoSignIn } from "react-icons/go";
+import { RiLockPasswordLine } from "react-icons/ri";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../../Redux/Actions/user";
+import { forgotPassword } from "../../Redux/Actions/user";
 import { Navigate, NavLink } from "react-router-dom";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
 
@@ -25,10 +22,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <NavLink to={"/"}>
-        Your Website
-      </NavLink>{" "}
-      {new Date().getFullYear()}
+      <NavLink to={"/"}>Your Website</NavLink> {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -36,23 +30,37 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function ForgotPassword() {
   const dispatch = useDispatch();
-  const { currentUser, error } = useSelector(
+  const { currentUser, error, message } = useSelector(
     (state) => state.userReducer
   );
+  const [openAlert, setOpenAlert] = useState(false);
+
+  const handleOpenAlert = () => {
+    setOpenAlert(true);
+  };
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenAlert(false);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     dispatch(
-      signIn({
+      forgotPassword({
         email: data.get("email"),
-        password: data.get("password"),
+        newPassword: data.get("newPassword"),
+        confirmPassword: data.get("confirmPassword")
       })
     );
+    setTimeout(handleOpenAlert, 2000);
   };
-  if(currentUser) {
-    return <Navigate to="/"/>
+  if (currentUser) {
+    return <Navigate to="/" />;
   }
   return (
     <ThemeProvider theme={theme}>
@@ -67,10 +75,10 @@ export default function SignIn() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <GoSignIn />
+            <RiLockPasswordLine />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Set new password
           </Typography>
           <Box
             component="form"
@@ -83,7 +91,7 @@ export default function SignIn() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -93,16 +101,21 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
               type="password"
-              id="password"
-              autoComplete="current-password"
+              name="newPassword"
+              label="New password"
+              id="newPassword"
               size="small"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              type="password"
+              name="confirmPassword"
+              label="Confirm password"
+              id="confirmPassword"
+              size="small"
             />
             <Button
               type="submit"
@@ -110,25 +123,23 @@ export default function SignIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Submit
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <NavLink to="/auth/forgotPassword" className="text-xs">
-                  Forgot password?
-                </NavLink>
-              </Grid>
-              <Grid item>
-                <NavLink to="/auth/signUp" className="text-xs">
-                  {"Don't have an account? Sign Up"}
-                </NavLink>
-              </Grid>
-            </Grid>
+            <div className="text-right">
+              <NavLink to="/auth/signIn" className="text-xs">
+                Transfer to sign in ?
+              </NavLink>
+            </div>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-      <StatusAlert error={error} openAlert={error ? true : false}/>
+      <StatusAlert
+        message={message}
+        error={error}
+        openAlert={openAlert}
+        onCloseAlert={handleCloseAlert}
+      />
     </ThemeProvider>
   );
 }

@@ -46,38 +46,38 @@ const brands = [
     icon: SiMlb,
   },
 ];
-const categories = [
-  {
-    name: "Running",
-    href: "#",
-  },
-  {
-    name: "Fashion",
-    href: "#",
-  },
-  {
-    name: "Slippers",
-    href: "#",
-  },
-  {
-    name: "Docter",
-    href: "#",
-  },
-  {
-    name: "Boots",
-    href: "#",
-  },
-  {
-    name: "Accessory",
-    href: "#",
-  },
-];
+// const categories = [
+//   {
+//     name: "Running",
+//     href: "#",
+//   },
+//   {
+//     name: "Fashion",
+//     href: "#",
+//   },
+//   {
+//     name: "Slippers",
+//     href: "#",
+//   },
+//   {
+//     name: "Docter",
+//     href: "#",
+//   },
+//   {
+//     name: "Boots",
+//     href: "#",
+//   },
+//   {
+//     name: "Accessory",
+//     href: "#",
+//   },
+// ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Header({ onHandleCart }) {
+export default function Header({ onHandleCart, categories }) {
   const { currentUser } = useSelector(
     (state) => state.userReducer
   );

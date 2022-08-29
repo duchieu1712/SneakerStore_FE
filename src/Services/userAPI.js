@@ -24,6 +24,14 @@ const userAPI = {
     deleteUser: (data) => {
         const path = `/user/deleteUser`;
         return axiosClient.post(path, data);
+    },
+    changePassword: (id,data) => {
+        const path = `/user/changePassword/${id}`;
+        return axiosClient.put(path, data);
+    },
+    forgotPassword: (data) => {
+        const path = `/user/forgotPassword`;
+        return axiosClient.put(path, data);
     }
 }
 

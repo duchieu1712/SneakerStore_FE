@@ -22,6 +22,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import AdminRoute from "../Guards/AdminRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import UserSettings from "../Pages/UserSettings/UserSettings";
+import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
 
 export default function Routers() {
   return (
@@ -30,6 +31,7 @@ export default function Routers() {
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="/auth/signIn" element={<SignIn />} />
           <Route path="/auth/signUp" element={<SignUp />} />
+          <Route path="/auth/forgotPassword" element={<ForgotPassword />} /> 
         </Route>
       </Routes>
 

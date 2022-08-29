@@ -14,7 +14,6 @@ import {
   getBrands,
   updateBrand,
 } from "../../Redux/Actions/brand";
-import IconButton from "@mui/material/IconButton";
 
 const headCells = [
   {

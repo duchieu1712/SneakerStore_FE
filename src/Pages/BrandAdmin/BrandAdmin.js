@@ -55,6 +55,9 @@ export default function BrandAdmin() {
 
   const handleOpenAlert = () => {
     setOpenAlert(true);
+    setTimeout(function(){
+      window.location.reload(1);
+   }, 2000);
   };
   const handleCloseAlert = (event, reason) => {
     if (reason === "clickaway") {
@@ -144,7 +147,7 @@ export default function BrandAdmin() {
       dispatch(addBrand(brandObj));
     }
     handleClose();
-    setTimeout(handleOpenAlert, 2000);
+    setTimeout(handleOpenAlert, 1000);
   };
   const handleDeleteSelect = (select) => {
     setBrandDelete(select);

@@ -40,6 +40,9 @@ export default function CategoryAdmin() {
 
   const handleOpenAlert = () => {
     setOpenAlert(true)
+    setTimeout(function(){
+      window.location.reload(1);
+   }, 2000);
   }
   const handleCloseAlert = (event, reason) => {
     if (reason === "clickaway") {

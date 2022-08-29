@@ -11,7 +11,7 @@ const brandReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "GET_BRANDS_SUCCESS": {
-      return { ...state, loading: false, brands: action.payload.data };
+      return { ...state, loading: false, brands: action.payload.data.data };
     }
     case "GET_BRANDS_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };

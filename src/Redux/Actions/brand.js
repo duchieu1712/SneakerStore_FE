@@ -26,6 +26,7 @@ export const addBrand = (data) => {
     formData.append(key, data[key]);
   }
   return (dispatch) => {
+    console.log(formData);
     dispatch({ type: "ADD_BRAND_REQUEST" });
     brandAPI
       .addBrand(formData)

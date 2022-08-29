@@ -5,17 +5,17 @@ const brandAPI = {
         const path = "/brand/getBrands";
         return axiosClient.get(path);
     },
-    addBrand: (data) => {
+    addBrand: (form_data) => {
         const path = "/brand/addBrand";
-        return axiosClient.post(path, data);
+        return axiosClient.post(path, form_data);
     },
     updateBrand: (id,data) => {
         const path = `/brand/updateBrand/${id}`;
         return axiosClient.patch(path, data);
     },
-    deleteBrand: (id) => {
-        const path = `/brand/deleteBrand/${id}`;
-        return axiosClient.delete(path);
+    deleteBrand: (data) => {
+        const path = `/brand/deleteBrand`;
+        return axiosClient.post(path,data);
     }
 }
 

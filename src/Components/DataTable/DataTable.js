@@ -234,10 +234,17 @@ export default function DataTable({rows, headCells, handleEditSelect,handleDelet
                           }}
                         />
                       </TableCell>
-                      {headCells.map((column) => {
+                      {headCells.map((column,index) => {
                         const value = row[column.id];
+                        if(column.id === "image"){
+                          return(
+                            <TableCell key={index}>
+                              <img src={value} alt="brand"/>
+                            </TableCell>
+                          )
+                        }
                         return (
-                          <TableCell>
+                          <TableCell key={index}>
                             {column.format && typeof value === "number"
                               ? column.format(value)
                               : value}

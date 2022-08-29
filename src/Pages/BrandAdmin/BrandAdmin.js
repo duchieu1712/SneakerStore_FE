@@ -87,9 +87,16 @@ export default function BrandAdmin() {
     setOpen(true);
     setIsUpdate(false);
   };
-  const handleChangeObj = (e) => {
-    const { name, value } = e.target;
-    setBrandObj({ ...brandObj, [name]: value });
+  const handleChangeObj = (type)=>(e) => {
+    if(type === "image"){
+      setBrandObj((obj)=>({
+        ...obj,
+        image:e.target.files[0]
+      }))
+    }
+    else{
+      setBrandObj({ ...brandObj, [type]: e.target.value });
+    }
   };
   const content = (
     <Box
@@ -101,22 +108,19 @@ export default function BrandAdmin() {
       <TextField
         label="Brand"
         size="small"
-        name="name"
         value={brandObj.name}
-        onChange={handleChangeObj}
+        onChange={handleChangeObj("name")}
       />
       <TextField
         size="small"
-        name="image"
-        onChange={handleChangeObj}
+        onChange={handleChangeObj("image")}
         type="file"
       />
       <TextField
         label="Descrip"
         size="small"
-        name="descrip"
         value={brandObj.descrip}
-        onChange={handleChangeObj}
+        onChange={handleChangeObj("descrip")}
       />
     </Box>
   );
@@ -135,7 +139,7 @@ export default function BrandAdmin() {
       formData.append(key, brandObj[key]);
     }
     if (isUpdate) {
-      // dispatch(updateBrand(brandObj.id, brandObj));
+      dispatch(updateBrand(brandObj.id, brandObj));
     } else {
       // console.log(formData);
       dispatch(addBrand(brandObj));

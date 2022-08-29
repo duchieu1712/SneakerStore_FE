@@ -26,7 +26,6 @@ export const addBrand = (data) => {
     formData.append(key, data[key]);
   }
   return (dispatch) => {
-    console.log(formData);
     dispatch({ type: "ADD_BRAND_REQUEST" });
     brandAPI
       .addBrand(formData)
@@ -46,10 +45,14 @@ export const addBrand = (data) => {
 };
 
 export const updateBrand = (id,data) => {
+  const formData = new FormData();
+  for (const key in data) {
+    formData.append(key, data[key]);
+  }
   return (dispatch) => {
     dispatch({ type: "UPDATE_BRAND_REQUEST" });
     brandAPI
-      .updateBrand(id,data)
+      .updateBrand(id,formData)
       .then((result) => {
         dispatch({
           type: "UPDATE_BRAND_SUCCESS",

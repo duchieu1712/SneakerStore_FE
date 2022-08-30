@@ -11,7 +11,7 @@ const initialState = {
         return { ...state, loading: true, error: null };
       }
       case "GET_DELIVERIES_SUCCESS": {
-        return { ...state, loading: false, deliveries: action.payload.data };
+        return { ...state, loading: false, deliveries: action.payload.data.data };
       }
       case "GET_DELIVERIES_FAILURE": {
           return {...state, loading: false, error: action.payload.error}
@@ -44,7 +44,7 @@ const initialState = {
           return {...state, loading: false, message: action.payload.data.message, error: null}
       }
       case "DELETE_DELIVERY_FAILURE": {
-          return {...state, loading: false, error: action.payload.error}
+          return {...state, loading: false, error: action.payload.error.message}
       }
       default:
           return state;

@@ -10,7 +10,7 @@ const discountReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "GET_DISCOUNTS_SUCCESS": {
-      return { ...state, loading: false, discounts: action.payload.data };
+      return { ...state, loading: false, discounts: action.payload.data.data };
     }
     case "GET_DISCOUNTS_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };
@@ -43,7 +43,7 @@ const discountReducer = (state = initialState, action) => {
       return { ...state, loading: false, message: action.payload.data.message, error: null };
     }
     case "DELETE_DISCOUNT_FAILURE": {
-      return { ...state, loading: false, error: action.payload.error };
+      return { ...state, loading: false, error: action.payload.error.message };
     }
     default:
       return state;

@@ -236,6 +236,13 @@ export default function DataTable({rows, headCells, handleEditSelect,handleDelet
                       </TableCell>
                       {headCells.map((column,index) => {
                         const value = row[column.id];
+                        if(column.id === "percent"){
+                          return(
+                            <TableCell width="20%" key={index}>
+                              {value}%
+                            </TableCell>
+                          )
+                        }
                         if(column.id === "image"){
                           return(
                             <TableCell width="20%" key={index}>

@@ -50,6 +50,7 @@ export default function ForgotPassword() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(data);
     dispatch(
       forgotPassword({
         email: data.get("email"),

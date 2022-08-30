@@ -11,11 +11,11 @@ const discountAPI = {
     },
     updateDiscount: (id,data) => {
         const path = `/discount/updateDiscount/${id}`;
-        return axiosClient.patch(path, data);
+        return axiosClient.put(path, data);
     },
-    deleteDiscount: (id) => {
-        const path = `/discount/deleteDiscount/${id}`;
-        return axiosClient.delete(path);
+    deleteDiscount: (data) => {
+        const path = `/discount/deleteDiscount`;
+        return axiosClient.post(path,data);
     }
 }
 

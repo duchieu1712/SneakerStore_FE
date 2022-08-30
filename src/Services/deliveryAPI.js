@@ -11,11 +11,11 @@ const deliveryAPI = {
     },
     updateDelivery: (id,data) => {
         const path = `/delivery/updateDelivery/${id}`;
-        return axiosClient.patch(path, data);
+        return axiosClient.put(path, data);
     },
-    deleteDelivery: (id) => {
-        const path = `/delivery/deleteDelivery/${id}`;
-        return axiosClient.delete(path);
+    deleteDelivery: (data) => {
+        const path = `/delivery/deleteDelivery`;
+        return axiosClient.post(path,data);
     }
 }
 

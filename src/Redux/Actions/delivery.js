@@ -60,11 +60,11 @@ export const getDeliveries = () => {
     };
   };
   
-  export const deleteDelivery = (id) => {
+  export const deleteDelivery = (data) => {
     return (dispatch) => {
       dispatch({ type: "DELETE_DELIVERY_REQUEST" });
       deliveryAPI
-        .deleteDelivery(id)
+        .deleteDelivery(data)
         .then((result) => {
           dispatch({
             type: "DELETE_DELIVERY_SUCCESS",

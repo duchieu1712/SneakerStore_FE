@@ -1,11 +1,9 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import { FaAngleDown, FaBars } from "react-icons/fa";
-import { SiNike, SiAdidas, SiPuma, SiReebok, SiMlb } from "react-icons/si";
 import { BsCart4 } from "react-icons/bs";
-import { GiConverseShoe } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
 import navbarConfig from "../../Utils/navbarConfig";
 import menuUserConfig from "../../Utils/menuUserConfig";
@@ -14,73 +12,14 @@ import SearchInput from "../SearchInput/SearchInput";
 import { useSelector } from "react-redux";
 import TokenService from "../../Services/serviceToken";
 
-const brands = [
-  {
-    name: "Nike",
-    href: "#",
-    icon: SiNike,
-  },
-  {
-    name: "Adidas",
-    href: "#",
-    icon: SiAdidas,
-  },
-  {
-    name: "Puma",
-    href: "#",
-    icon: SiPuma,
-  },
-  {
-    name: "Converse",
-    href: "#",
-    icon: GiConverseShoe,
-  },
-  {
-    name: "Reebok",
-    href: "#",
-    icon: SiReebok,
-  },
-  {
-    name: "MLB",
-    href: "#",
-    icon: SiMlb,
-  },
-];
-// const categories = [
-//   {
-//     name: "Running",
-//     href: "#",
-//   },
-//   {
-//     name: "Fashion",
-//     href: "#",
-//   },
-//   {
-//     name: "Slippers",
-//     href: "#",
-//   },
-//   {
-//     name: "Docter",
-//     href: "#",
-//   },
-//   {
-//     name: "Boots",
-//     href: "#",
-//   },
-//   {
-//     name: "Accessory",
-//     href: "#",
-//   },
-// ];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Header({ onHandleCart, categories }) {
-  const { currentUser } = useSelector(
-    (state) => state.userReducer
-  );
+export default function Header({ onHandleCart, categories, brands }) {
+  const { currentUser } = useSelector((state) => state.userReducer);
+  const [searchParams] = useSearchParams();
+  console.log(searchParams);
   const signOut = () => {
     TokenService.removeUser();
     window.location.href = "/";
@@ -141,21 +80,22 @@ export default function Header({ onHandleCart, categories }) {
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {brands.map((item) => (
-                            <a
+                            <NavLink
+                              to={`filterPage/?brand=${item.name}`}
+                            
                               key={item.name}
-                              href={item.href}
                               className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                             >
-                              <item.icon
+                              {/* <item.icon
                                 className="flex-shrink-0 h-6 w-6 text-indigo-600"
                                 aria-hidden="true"
-                              />
+                              /> */}
                               <div className="ml-4">
                                 <p className="text-base font-medium text-gray-900">
                                   {item.name}
                                 </p>
                               </div>
-                            </a>
+                            </NavLink>
                           ))}
                         </div>
                       </div>
@@ -196,9 +136,9 @@ export default function Header({ onHandleCart, categories }) {
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {categories.map((item) => (
-                            <a
+                            <NavLink
+                              to={`filterPage/?category=${item.name}`}
                               key={item.name}
-                              href={item.href}
                               className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                             >
                               <div className="ml-6">
@@ -206,7 +146,7 @@ export default function Header({ onHandleCart, categories }) {
                                   {item.name}
                                 </p>
                               </div>
-                            </a>
+                            </NavLink>
                           ))}
                         </div>
                       </div>
@@ -225,7 +165,7 @@ export default function Header({ onHandleCart, categories }) {
             ))}
           </Popover.Group>
           <div className="hidden md:block">
-            <SearchInput/>
+            <SearchInput />
           </div>
 
           {currentUser ? (
@@ -343,24 +283,24 @@ export default function Header({ onHandleCart, categories }) {
                   />
                 </div>
               </div>
-              <SearchInput/>
+              <SearchInput />
               <div className="mt-6">
                 <h3 className="mb-4 text-center">Brands</h3>
                 <nav className="grid grid-cols-2 gap-x-32 gapItem">
                   {brands.map((item) => (
-                    <a
+                    <NavLink
+                      to={`filterPage/?brand=${item.name}`}
                       key={item.name}
-                      href={item.href}
                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                     >
-                      <item.icon
+                      {/* <item.icon
                         className="flex-shrink-0 h-6 w-6 text-indigo-600"
                         aria-hidden="true"
-                      />
+                      /> */}
                       <span className="ml-3 text-base font-medium text-gray-900">
                         {item.name}
                       </span>
-                    </a>
+                    </NavLink>
                   ))}
                 </nav>
               </div>
@@ -368,15 +308,15 @@ export default function Header({ onHandleCart, categories }) {
                 <h3 className="mb-4 text-center">Categories</h3>
                 <nav className="grid grid-cols-2 gap-x-32 gapItem">
                   {categories.map((item) => (
-                    <a
+                    <NavLink
+                      to={`filterPage/?category=${item.name}`}
                       key={item.name}
-                      href={item.href}
                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                     >
                       <span className="ml-3 text-base font-medium text-gray-900">
                         {item.name}
                       </span>
-                    </a>
+                    </NavLink>
                   ))}
                 </nav>
               </div>

@@ -23,6 +23,7 @@ import AdminRoute from "../Guards/AdminRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import UserSettings from "../Pages/UserSettings/UserSettings";
 import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
+import FilterPage from "../Pages/FilterPage/FilterPage";
 
 export default function Routers() {
   return (
@@ -43,6 +44,7 @@ export default function Routers() {
           <Route path="/productDetail" element={<ProductDetail />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/settings" element={<UserSettings />} />
+          <Route path="/filterPage" element={<FilterPage />} />
         </Route>
       </Routes>
 

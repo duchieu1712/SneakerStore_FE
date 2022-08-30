@@ -20,7 +20,7 @@ const headCells = [
   {
     id: "name",
     format: (value) => value.toLocaleString("en-US"),
-    label: "Discount",
+    label: "Name service",
   },
   {
     id: "price",
@@ -98,7 +98,7 @@ export default function DeliveryAdmin() {
       sx={{
         "& .MuiTextField-root": { m: 1, width: "25ch" },
       }}>
-      <TextField label="Delivery" size="small" value= {deliveryObj.name} onChange={handleChangeObj("name")}/>
+      <TextField label="Name service" size="small" value= {deliveryObj.name} onChange={handleChangeObj("name")}/>
       <TextField label="Price" size="small" type= "number" value= {deliveryObj.price} onChange={handleChangeObj("price")}/>
       <TextField label="Estimate" size="small" value= {deliveryObj.estimate} onChange={handleChangeObj("estimate")}/>
     </Box>

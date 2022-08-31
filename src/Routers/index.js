@@ -23,29 +23,10 @@ import AdminRoute from "../Guards/AdminRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import UserSettings from "../Pages/UserSettings/UserSettings";
 import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
+import FilterPage from "../Pages/FilterPage/FilterPage";
 
 export default function Routers() {
   return (
-    // <BrowserRouter>
-    //   <Routes>
-    //     <Route path="/auth" element={<AuthLayout />}>
-    //       <Route path="/auth/signIn" element={<SignIn />} />
-    //       <Route path="/auth/signUp" element={<SignUp />} />
-    //       <Route path="/auth/forgotPassword" element={<ForgotPassword />} />
-    //     </Route>
-    //   </Routes>
-
-    //   <Routes>
-    //     <Route path="/" element={<HomeLayout />}>
-    //       <Route path="/" element={<Home />} />
-    //       <Route path="/allProducts" element={<AllProducts />} />
-    //       <Route path="/search/:key" element={<SearchProduct />} />
-    //       <Route path="/productDetail" element={<ProductDetail />} />
-    //       <Route path="/checkout" element={<Checkout />} />
-    //       <Route path="/settings" element={<UserSettings />} />
-    //     </Route>
-    //   </Routes>
-
     //   <Routes>
     //     <Route path="/admin" element={<AdminLayout />}>
     //       <Route

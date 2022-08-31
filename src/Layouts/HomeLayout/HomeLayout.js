@@ -5,7 +5,7 @@ import Cart from '../../Components/Cart/Cart'
 import Header from '../../Components/Header/Header'
 import { getCategories } from '../../Redux/Actions/category';
 
-export default function HomeLayout() {
+export default function HomeLayout({children}) {
     const dispatch = useDispatch();
     const [openCart, setOpenCart] = useState(false);
     const handleOpenCart = () => {
@@ -20,7 +20,7 @@ export default function HomeLayout() {
         <>
         <Header onHandleCart={()=>handleOpenCart()} categories={categories}/>
         <Cart onCartOpen={openCart} onCartClose={()=>handleOpenCart()}/>
-        <Outlet/>
+        {children}
         
         </>
     )

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import AdminLayout from "../Layouts/AdminLayout/AdminLayout";
 import HomeLayout from "../Layouts/HomeLayout/HomeLayout";
 import Checkout from "../Pages/Checkout/Checkout";
@@ -26,110 +26,185 @@ import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
 
 export default function Routers() {
   return (
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route path="/auth" element={<AuthLayout />}>
+    //       <Route path="/auth/signIn" element={<SignIn />} />
+    //       <Route path="/auth/signUp" element={<SignUp />} />
+    //       <Route path="/auth/forgotPassword" element={<ForgotPassword />} />
+    //     </Route>
+    //   </Routes>
+
+    //   <Routes>
+    //     <Route path="/" element={<HomeLayout />}>
+    //       <Route path="/" element={<Home />} />
+    //       <Route path="/allProducts" element={<AllProducts />} />
+    //       <Route path="/search/:key" element={<SearchProduct />} />
+    //       <Route path="/productDetail" element={<ProductDetail />} />
+    //       <Route path="/checkout" element={<Checkout />} />
+    //       <Route path="/settings" element={<UserSettings />} />
+    //     </Route>
+    //   </Routes>
+
+    //   <Routes>
+    //     <Route path="/admin" element={<AdminLayout />}>
+    //       <Route
+    //         path="/admin"
+    //         element={
+    //           <AdminRoute>
+    //             <Dashboard />
+    //           </AdminRoute>
+    //         }
+    //       />
+    //       <Route
+    //         path="/admin/user"
+    //         element={
+    //           <AdminRoute>
+    //             <UserAdmin />
+    //           </AdminRoute>
+    //         }
+    //       />
+    //       <Route
+    //         path="/admin/product"
+    //         element={
+    //           <AdminRoute>
+    //             <ProductAdmin />
+    //           </AdminRoute>
+    //         }
+    //       />
+    //       <Route
+    //         path="/admin/category"
+    //         element={
+    //           <AdminRoute>
+    //             <CategoryAdmin />
+    //           </AdminRoute>
+    //         }
+    //       />
+    //       <Route
+    //         path="/admin/brand"
+    //         element={
+    //           <AdminRoute>
+    //             <BrandAdmin />
+    //           </AdminRoute>
+    //         }
+    //       />
+    //       <Route
+    //         path="/admin/delivery"
+    //         element={
+    //           <AdminRoute>
+    //             <DeliveryAdmin />
+    //           </AdminRoute>
+    //         }
+    //       />
+    //       <Route
+    //         path="/admin/discount"
+    //         element={
+    //           <AdminRoute>
+    //             <DiscountAdmin />
+    //           </AdminRoute>
+    //         }
+    //       />
+    //       <Route
+    //         path="/admin/order"
+    //         element={
+    //           <AdminRoute>
+    //             <OrderAdmin />
+    //           </AdminRoute>
+    //         }
+    //       />
+    //       <Route
+    //         path="/admin/orderDetail"
+    //         element={
+    //           <AdminRoute>
+    //             <OrderDetailAdmin />
+    //           </AdminRoute>
+    //         }
+    //       />
+    //       <Route
+    //         path="/admin/settings"
+    //         element={
+    //           <AdminRoute>
+    //             <AdminSettings />
+    //           </AdminRoute>
+    //         }
+    //       />
+    //     </Route>
+    //   </Routes>
+    // </BrowserRouter>
     <BrowserRouter>
-      <Routes>
-        <Route path="/auth" element={<AuthLayout />}>
-          <Route path="/auth/signIn" element={<SignIn />} />
-          <Route path="/auth/signUp" element={<SignUp />} />
-          <Route path="/auth/forgotPassword" element={<ForgotPassword />} /> 
-        </Route>
-      </Routes>
-
-      <Routes>
-        <Route path="/" element={<HomeLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/allProducts" element={<AllProducts />} />
-          <Route path="/search/:key" element={<SearchProduct />} />
-          <Route path="/productDetail" element={<ProductDetail />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/settings" element={<UserSettings />} />
-        </Route>
-      </Routes>
-
-      <Routes>
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route
-            path="/admin"
-            element={
-              <AdminRoute>
-                <Dashboard />
+      <Switch>
+        {/* Route admin */}
+        <Route path="/admin">
+          <AdminLayout>
+            <Switch>
+            <Redirect exact from="/admin" to="/admin/dashboard"/>
+            <AdminRoute path="/admin/dashboard">
+            <Dashboard />
               </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/user"
-            element={
-              <AdminRoute>
+              <AdminRoute path="/admin/user">
                 <UserAdmin />
               </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/product"
-            element={
-              <AdminRoute>
+              <AdminRoute path="/admin/product">
                 <ProductAdmin />
               </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/category"
-            element={
-              <AdminRoute>
-                <CategoryAdmin />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/brand"
-            element={
-              <AdminRoute>
+              <AdminRoute path="/admin/brand">
                 <BrandAdmin />
               </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/delivery"
-            element={
-              <AdminRoute>
+              <AdminRoute path="/admin/category">
+                <CategoryAdmin />
+              </AdminRoute>
+              <AdminRoute path="/admin/delivery">
                 <DeliveryAdmin />
               </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/discount"
-            element={
-              <AdminRoute>
+              <AdminRoute path="/admin/discount">
                 <DiscountAdmin />
               </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/order"
-            element={
-              <AdminRoute>
+              <AdminRoute path="/admin/order">
                 <OrderAdmin />
               </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/orderDetail"
-            element={
-              <AdminRoute>
+              <AdminRoute path="/admin/orderDetail">
                 <OrderDetailAdmin />
               </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/settings"
-            element={
-              <AdminRoute>
-                <AdminSettings />
+              <AdminRoute path="/admin/settings">
+                <AdminSettings/>
               </AdminRoute>
-            }
-          />
+            </Switch>
+          </AdminLayout>
         </Route>
-      </Routes>
+        {/* Route main */}
+        <Route path="/auth">
+          <AuthLayout>
+            <Route path="/auth/signIn">
+              <SignIn />
+            </Route>
+            <Route path="/auth/signUp">
+              <SignUp />
+            </Route>
+            <Route path="/auth/forgotPassword">
+              <ForgotPassword />
+            </Route>
+          </AuthLayout>
+        </Route>
+        <Route path="/">
+          <HomeLayout>
+            <Switch>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/allproducts" >
+                <AllProducts />
+              </Route>
+              <Route path="*">
+                <div style={{ margin: "100px 0" }}>Page not found</div>
+              </Route>
+            </Switch>
+          </HomeLayout>
+        </Route>
+        {/* <Route path="/detail/:value" component={Detail}/>
+    <Route path="/signup" component={SignUp}/>
+    <Route path="/signin" component={SignIn}/>
+    <Route path="/" component={Home}/> */}
+      </Switch>
     </BrowserRouter>
   );
 }

@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../../Redux/Actions/user";
-import { Navigate, NavLink } from "react-router-dom";
+import { Navigate, NavLink, Redirect } from "react-router-dom";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
 
 function Copyright(props) {
@@ -61,7 +61,7 @@ export default function ForgotPassword() {
     setTimeout(handleOpenAlert, 2000);
   };
   if (currentUser) {
-    return <Navigate to="/" />;
+    return <Redirect to="/" />;
   }
   return (
     <ThemeProvider theme={theme}>

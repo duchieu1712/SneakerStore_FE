@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { FaBars } from "react-icons/fa";
 
-export default function AdminLayout(props) {
+export default function AdminLayout({children}) {
   const [navOpen, setNavOpen] = useState(true);
   const handleOpen = () => {
     setNavOpen(!navOpen);
@@ -42,7 +42,7 @@ export default function AdminLayout(props) {
         navConfig={sidebarConfig}
       />
       <Box sx={{ ml: { xs: '20px', sm: '280px' }, mt: '80px', mr: '20px'}}>
-        <Outlet />
+      {children}
       </Box>
       
     </>

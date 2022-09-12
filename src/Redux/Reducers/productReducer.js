@@ -10,12 +10,20 @@ const productReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "GET_PRODUCTS_SUCCESS": {
-      return { ...state, loading: false, products: action.payload.data };
+      return { ...state, loading: false, products: action.payload.data.data };
     }
     case "GET_PRODUCTS_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };
     }
-
+    case "FILTER_PRODUCTS_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "FILTER_PRODUCTS_SUCCESS": {
+      return { ...state, loading: false, products: action.payload.data.data };
+    }
+    case "FILTER_PRODUCTS_FAILURE": {
+      return { ...state, loading: false, error: action.payload.error };
+    }
     case "ADD_PRODUCT_REQUEST": {
       return { ...state, loading: true, error: null };
     }

@@ -20,6 +20,26 @@ export const getProducts = () => {
   };
 };
 
+export const filterProducts = (data) => {
+  return (dispatch) => {
+    dispatch({ type: "FILTER_PRODUCTS_REQUEST" });
+    productAPI
+      .filterProducts(data)
+      .then((result) => {
+        dispatch({
+          type: "FILTER_PRODUCTS_SUCCESS",
+          payload: { data: result.data },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "FILTER_PRODUCTS_FAILURE",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};
+
 export const addProduct = (data) => {
   return (dispatch) => {
     dispatch({ type: "ADD_PRODUCT_REQUEST" });

@@ -5,6 +5,10 @@ const productAPI = {
         const path = "/product/getProducts";
         return axiosClient.get(path);
     },
+    filterProducts: (data) => {
+        const path = `/product/getProducts/${data}`;
+        return axiosClient.get(path);
+    },
     addProduct: (data) => {
         const path = "/product/addProduct";
         return axiosClient.post(path, data);

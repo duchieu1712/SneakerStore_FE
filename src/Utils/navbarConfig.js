@@ -1,7 +1,7 @@
 const navbarConfig = [
     {
       name: "All products",
-      href: "allProducts",
+      href: "listProducts",
     },
     {
       name: "Events",

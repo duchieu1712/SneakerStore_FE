@@ -6,9 +6,8 @@ import Checkout from "../Pages/Checkout/Checkout";
 import Home from "../Pages/Home/Home";
 import ProductAdmin from "../Pages/ProductAdmin/ProductAdmin";
 import ProductDetail from "../Pages/ProductDetail/ProductDetail";
-import AllProducts from "../Pages/AllProducts/AllProducts";
+import ListProducts from "../Pages/ListProducts/ListProducts";
 import UserAdmin from "../Pages/UserAdmin/UserAdmin";
-import SearchProduct from "../Pages/SearchProduct/SearchProduct";
 import CategoryAdmin from "../Pages/CategoryAdmin/CategoryAdmin";
 import BrandAdmin from "../Pages/BrandAdmin/BrandAdmin";
 import DeliveryAdmin from "../Pages/DeliveryAdmin/DeliveryAdmin";
@@ -23,168 +22,86 @@ import AdminRoute from "../Guards/AdminRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import UserSettings from "../Pages/UserSettings/UserSettings";
 import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
-import FilterPage from "../Pages/FilterPage/FilterPage";
 
 export default function Routers() {
   return (
-    //   <Routes>
-    //     <Route path="/admin" element={<AdminLayout />}>
-    //       <Route
-    //         path="/admin"
-    //         element={
-    //           <AdminRoute>
-    //             <Dashboard />
-    //           </AdminRoute>
-    //         }
-    //       />
-    //       <Route
-    //         path="/admin/user"
-    //         element={
-    //           <AdminRoute>
-    //             <UserAdmin />
-    //           </AdminRoute>
-    //         }
-    //       />
-    //       <Route
-    //         path="/admin/product"
-    //         element={
-    //           <AdminRoute>
-    //             <ProductAdmin />
-    //           </AdminRoute>
-    //         }
-    //       />
-    //       <Route
-    //         path="/admin/category"
-    //         element={
-    //           <AdminRoute>
-    //             <CategoryAdmin />
-    //           </AdminRoute>
-    //         }
-    //       />
-    //       <Route
-    //         path="/admin/brand"
-    //         element={
-    //           <AdminRoute>
-    //             <BrandAdmin />
-    //           </AdminRoute>
-    //         }
-    //       />
-    //       <Route
-    //         path="/admin/delivery"
-    //         element={
-    //           <AdminRoute>
-    //             <DeliveryAdmin />
-    //           </AdminRoute>
-    //         }
-    //       />
-    //       <Route
-    //         path="/admin/discount"
-    //         element={
-    //           <AdminRoute>
-    //             <DiscountAdmin />
-    //           </AdminRoute>
-    //         }
-    //       />
-    //       <Route
-    //         path="/admin/order"
-    //         element={
-    //           <AdminRoute>
-    //             <OrderAdmin />
-    //           </AdminRoute>
-    //         }
-    //       />
-    //       <Route
-    //         path="/admin/orderDetail"
-    //         element={
-    //           <AdminRoute>
-    //             <OrderDetailAdmin />
-    //           </AdminRoute>
-    //         }
-    //       />
-    //       <Route
-    //         path="/admin/settings"
-    //         element={
-    //           <AdminRoute>
-    //             <AdminSettings />
-    //           </AdminRoute>
-    //         }
-    //       />
-    //     </Route>
-    //   </Routes>
-    // </BrowserRouter>
     <BrowserRouter>
       <Switch>
         {/* Route admin */}
         <Route path="/admin">
           <AdminLayout>
             <Switch>
-            <Redirect exact from="/admin" to="/admin/dashboard"/>
-            <AdminRoute path="/admin/dashboard">
-            <Dashboard />
-              </AdminRoute>
-              <AdminRoute path="/admin/user">
-                <UserAdmin />
-              </AdminRoute>
-              <AdminRoute path="/admin/product">
-                <ProductAdmin />
-              </AdminRoute>
-              <AdminRoute path="/admin/brand">
-                <BrandAdmin />
-              </AdminRoute>
-              <AdminRoute path="/admin/category">
-                <CategoryAdmin />
-              </AdminRoute>
-              <AdminRoute path="/admin/delivery">
-                <DeliveryAdmin />
-              </AdminRoute>
-              <AdminRoute path="/admin/discount">
-                <DiscountAdmin />
-              </AdminRoute>
-              <AdminRoute path="/admin/order">
-                <OrderAdmin />
-              </AdminRoute>
-              <AdminRoute path="/admin/orderDetail">
-                <OrderDetailAdmin />
-              </AdminRoute>
-              <AdminRoute path="/admin/settings">
-                <AdminSettings/>
-              </AdminRoute>
+              <Redirect exact from="/admin" to="/admin/dashboard" />
+              <AdminRoute exact path="/admin/dashboard" component={Dashboard} />
+
+              <AdminRoute exact path="/admin/user" component={UserAdmin} />
+
+              <AdminRoute
+                exact
+                path="/admin/product"
+                component={ProductAdmin}
+              />
+
+              <AdminRoute exact path="/admin/brand" component={BrandAdmin} />
+
+              <AdminRoute
+                exact
+                path="/admin/category"
+                component={CategoryAdmin}
+              />
+
+              <AdminRoute
+                exact
+                path="/admin/delivery"
+                component={DeliveryAdmin}
+              />
+
+              <AdminRoute
+                exact
+                path="/admin/discount"
+                component={DiscountAdmin}
+              />
+
+              <AdminRoute exact path="/admin/order" component={OrderAdmin} />
+
+              <AdminRoute
+                exact
+                path="/admin/orderDetail"
+                component={OrderDetailAdmin}
+              />
+
+              <AdminRoute path="/admin/settings" component={AdminSettings} />
             </Switch>
           </AdminLayout>
         </Route>
-        {/* Route main */}
+
+        {/* Route auth */}
         <Route path="/auth">
           <AuthLayout>
-            <Route path="/auth/signIn">
-              <SignIn />
-            </Route>
-            <Route path="/auth/signUp">
-              <SignUp />
-            </Route>
-            <Route path="/auth/forgotPassword">
-              <ForgotPassword />
-            </Route>
+            <Route exact path="/auth/signIn" component={SignIn} />
+            <Route exact path="/auth/signUp" component={SignUp} />
+            <Route
+              exact
+              path="/auth/forgotPassword"
+              component={ForgotPassword}
+            />
           </AuthLayout>
         </Route>
+
+        {/* Route main */}
         <Route path="/">
           <HomeLayout>
             <Switch>
-              <Route path="/" exact>
-                <Home />
-              </Route>
-              <Route path="/allproducts" >
-                <AllProducts />
-              </Route>
-              <Route path="*">
-                <div style={{ margin: "100px 0" }}>Page not found</div>
-              </Route>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/listProducts" component={ListProducts} />
+              <Route exact path="/productDetail" component={ProductDetail} />
+              <Route exact path="/userSettings" component={UserSettings} />
+              <Route exact path="/checkout" component={Checkout} />
             </Switch>
           </HomeLayout>
         </Route>
-        {/* <Route path="/detail/:value" component={Detail}/>
-    <Route path="/signup" component={SignUp}/>
-    <Route path="/signin" component={SignIn}/>
-    <Route path="/" component={Home}/> */}
+
+        <Redirect to="/" />
       </Switch>
     </BrowserRouter>
   );

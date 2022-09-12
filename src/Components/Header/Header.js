@@ -1,6 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
-import { NavLink, useSearchParams } from "react-router-dom";
+import { Fragment, useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import { FaAngleDown, FaBars } from "react-icons/fa";
 import { BsCart4 } from "react-icons/bs";
@@ -18,12 +18,20 @@ function classNames(...classes) {
 
 export default function Header({ onHandleCart, categories, brands }) {
   const { currentUser } = useSelector((state) => state.userReducer);
-  const [searchParams] = useSearchParams();
-  console.log(searchParams);
+  const history = useHistory()
   const signOut = () => {
     TokenService.removeUser();
     window.location.href = "/";
   };
+  const [key, setSearch] = useState(null);
+  const handleChangeSearch = (e) => {
+    setSearch(e.target.value)
+  }
+  const handleSearch = () => {
+    if(key !== null){
+      history.push(`/listProducts/?search=${key}`)
+    }
+  }
   return (
     <Popover className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -81,9 +89,8 @@ export default function Header({ onHandleCart, categories, brands }) {
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {brands.map((item) => (
                             <NavLink
-                              to={`filterPage/?brand=${item.name}`}
-                            
-                              key={item.name}
+                              to={`/listProducts/?brand=${item.id}`}
+                              key={item.id}
                               className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                             >
                               {/* <item.icon
@@ -137,8 +144,8 @@ export default function Header({ onHandleCart, categories, brands }) {
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {categories.map((item) => (
                             <NavLink
-                              to={`filterPage/?category=${item.name}`}
-                              key={item.name}
+                              to={`/listProducts/?category=${item.id}`}
+                              key={item.id}
                               className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                             >
                               <div className="ml-6">
@@ -165,7 +172,7 @@ export default function Header({ onHandleCart, categories, brands }) {
             ))}
           </Popover.Group>
           <div className="hidden md:block">
-            <SearchInput />
+            <SearchInput onHandleChange={handleChangeSearch} onHandleSearch={handleSearch}/>
           </div>
 
           {currentUser ? (
@@ -289,8 +296,8 @@ export default function Header({ onHandleCart, categories, brands }) {
                 <nav className="grid grid-cols-2 gap-x-32 gapItem">
                   {brands.map((item) => (
                     <NavLink
-                      to={`filterPage/?brand=${item.name}`}
-                      key={item.name}
+                      to={`/listProducts/${item.id}`}
+                      key={item.id}
                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                     >
                       {/* <item.icon
@@ -309,8 +316,8 @@ export default function Header({ onHandleCart, categories, brands }) {
                 <nav className="grid grid-cols-2 gap-x-32 gapItem">
                   {categories.map((item) => (
                     <NavLink
-                      to={`filterPage/?category=${item.name}`}
-                      key={item.name}
+                      to={`/listProducts/${item.id}`}
+                      key={item.id}
                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                     >
                       <span className="ml-3 text-base font-medium text-gray-900">

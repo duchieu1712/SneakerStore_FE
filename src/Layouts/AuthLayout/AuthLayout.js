@@ -1,5 +1,4 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 import authImg from "../../Assets/images/Photo1.png";
 
 const AuthLayout = ({children}) => {

@@ -1,5 +1,6 @@
 const initialState = {
   products: [],
+  product:{},
   loading: false,
   error: null,
 };
@@ -13,6 +14,15 @@ const productReducer = (state = initialState, action) => {
       return { ...state, loading: false, products: action.payload.data.data };
     }
     case "GET_PRODUCTS_FAILURE": {
+      return { ...state, loading: false, error: action.payload.error };
+    }
+    case "GET_PRODUCTBYID_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "GET_PRODUCTBYID_SUCCESS": {
+      return { ...state, loading: false, product: action.payload.data.data };
+    }
+    case "GET_PRODUCTBYID_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };
     }
     case "FILTER_PRODUCTS_REQUEST": {

@@ -24,7 +24,7 @@ const headCells = [
   },
   {
     id: "percent",
-    format: (value) => value.toLocaleString("en-US"),
+    format: (value) => {return value.toLocaleString("en-US")+"%"},
     label: "Percent",
   },
   

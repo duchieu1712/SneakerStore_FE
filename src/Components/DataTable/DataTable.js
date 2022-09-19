@@ -210,7 +210,7 @@ export default function DataTable({rows, headCells, handleEditSelect,handleDelet
             />
             <TableBody>
               {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .sort(getComparator(order, orderBy))
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
@@ -236,23 +236,16 @@ export default function DataTable({rows, headCells, handleEditSelect,handleDelet
                       </TableCell>
                       {headCells.map((column,index) => {
                         const value = row[column.id];
-                        if(column.id === "percent"){
-                          return(
-                            <TableCell width="20%" key={index}>
-                              {value}%
-                            </TableCell>
-                          )
-                        }
                         if(column.id === "image"){
                           return(
                             <TableCell width="20%" key={index}>
-                              <img src={value} alt="img"/>
+                              <img src={column.format(value)} alt="img"/>
                             </TableCell>
                           )
                         }
                         return (
                           <TableCell key={index}>
-                            {column.format && typeof value === "number"
+                            {(column.format && typeof value === "object") || (column.format && typeof value === "number")
                               ? column.format(value)
                               : value}
                           </TableCell>

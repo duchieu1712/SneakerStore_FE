@@ -94,7 +94,7 @@ export default function Routers() {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/listProducts" component={ListProducts} />
-              <Route exact path="/productDetail" component={ProductDetail} />
+              <Route exact path="/productDetail/:id" component={ProductDetail} />
               <Route exact path="/userSettings" component={UserSettings} />
               <Route exact path="/checkout" component={Checkout} />
             </Switch>

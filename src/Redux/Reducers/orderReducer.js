@@ -10,7 +10,7 @@ const initialState = {
         return { ...state, loading: true, error: null };
       }
       case "GET_ORDERS_SUCCESS": {
-        return { ...state, loading: false, orders: action.payload.data };
+        return { ...state, loading: false, orders: action.payload.data.data };
       }
       case "GET_ORDERS_FAILURE": {
         return { ...state, loading: false, error: action.payload.error };

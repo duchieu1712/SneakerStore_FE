@@ -2,7 +2,7 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { MdClose } from "react-icons/md"
-
+import { NavLink, useHistory } from "react-router-dom";
 const products = [
   {
     id: 1,
@@ -29,6 +29,11 @@ const products = [
 ]
 
 export default function Cart({onCartOpen, onCartClose}) {
+  const history = useHistory();
+  const handleContinue = () => {
+    history.push("/listProducts")
+    onCartClose()
+  }
 
   return (
     <Transition.Root show={onCartOpen} as={Fragment}>
@@ -76,7 +81,7 @@ export default function Cart({onCartOpen, onCartClose}) {
 
                       <div className="mt-8">
                         <div className="flow-root">
-                          <ul role="list" className="-my-6 divide-y divide-gray-200">
+                          <ul className="-my-6 divide-y divide-gray-200">
                             {products.map((product) => (
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -124,12 +129,12 @@ export default function Cart({onCartOpen, onCartClose}) {
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div className="mt-6">
-                        <a
-                          href="#"
+                        <NavLink
+                          to="/checkout"
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout
-                        </a>
+                        </NavLink>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
@@ -137,7 +142,7 @@ export default function Cart({onCartOpen, onCartClose}) {
                           <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={()=>onCartClose()}
+                            onClick={()=> handleContinue()}
                           >
                             Continue Shopping<span aria-hidden="true"> &rarr;</span>
                           </button>

@@ -1,10 +1,11 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./Product.css";
 
 export default function Product({ product }) {
   return (
     <div key={product.id} className="item p-2 ">
-      <a className="group" href="/#">
+      <NavLink className="group" to={`/productDetail/${product.id}`}>
         <div className="w-full h-36 aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
           <img
             src={product.image?.split(",")[0]}
@@ -23,7 +24,7 @@ export default function Product({ product }) {
         <p className="mt-1 text-lg font-medium text-gray-900 text-right pl-2">
           {product.price_discounted} $
         </p>
-      </a>
+      </NavLink>
     </div>
   );
 }

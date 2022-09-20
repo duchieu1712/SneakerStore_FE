@@ -10,7 +10,6 @@ import { BsPlus } from "react-icons/bs";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
 import { addOrder, deleteOrder, getOrders, updateOrder } from "../../Redux/Actions/order";
 import { getOrderDetails } from "../../Redux/Actions/orderDetail";
-import {JsonViewer} from '@textea/json-viewer'
 
 const headCells = [
   {
@@ -61,6 +60,90 @@ const headCells = [
   },
 ];
 
+const headCellsView = [
+  {
+    id: "id",
+    format: (value) => value.toLocaleString("en-US"),
+    label: "ID",
+  },
+  {
+    id: "amount",
+    format: (value) => value.toLocaleString("en-US"),
+    label: "Amount",
+  },
+  {
+    id: "order_id",
+    format: (value) => value.toLocaleString("en-US"),
+    label: "Order ID",
+  },
+  // {
+  //   id: "product_id",
+  //   format: (value) => value.toLocaleString("en-US"),
+  //   label: "Product ID",
+  // },
+  {
+    id: "size",
+    format: (value) => value.toLocaleString("en-US"),
+    label: "Size",
+  },
+  {
+    id: "product",
+    format: (value) => value?.id,
+    label: "Product ID",
+  },
+  {
+    id: "product",
+    format: (value) => value?.name,
+    label: "Product Name",
+  },
+  {
+    id: "product",
+    format: (value) => value?.price,
+    label: "Product Price",
+  },
+  {
+    id: "product",
+    format: (value) => value?.descrip,
+    label: "Product Descrip",
+  },
+  {
+    id: "product",
+    format: (value) => value?.highlights,
+    label: "Product Highlights",
+  },
+  {
+    id: "product",
+    format: (value) => value?.image,
+    label: "Product Image",
+  },
+  // {
+  //   id: "orderconfirm_time",
+  //   format: (value) => {return value ? value+"$" : "Not yet"},
+  //   label: "Confirmed order time",
+  // },
+  // {
+  //   id: "user",
+  //   format: (value) => value.email,
+  //   label: "User email",
+  // },
+  // {
+  //   id: "delivery",
+  //   format: (value) => {return value ? value.name : "Not yet"},
+  //   label: "Delivery service",
+  // },
+  // {
+  //   id: "order_status",
+  //   format: (value) => {
+  //     if (value === 0) {
+  //       return "Shopping";
+  //     } else {
+  //       return "Ordered";
+  //     }
+  //   },
+  //   label: "Status",
+  // },
+];
+
 export default function OrderAdmin() {
   const dispatch = useDispatch();
   const [key, setKey] = useState("");
@@ -71,6 +154,7 @@ export default function OrderAdmin() {
   const [isUpdate, setIsUpdate] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [orderDelete,setOrderDelete] = useState([])
+  const [optionsCheck,setOptionsCheck] = useState(true)
 
   useEffect(() => {
     dispatch(getOrders());
@@ -106,6 +190,7 @@ export default function OrderAdmin() {
     dispatch(getOrderDetails(select.id))
     setOrderObj(select);
     setOpenView(true);
+    setOptionsCheck(false)
   };
   const handleClose = () => {
     setOpen(false);
@@ -115,9 +200,10 @@ export default function OrderAdmin() {
     setOpenDelete(false);
     setOrderDelete([]);
   };
-  const handleCloseView = (select) => {
+  const handleCloseView = () => {
     setOpenView(false);
     setOrderDelete([]);
+    setOptionsCheck(true)
   };
   const handleAddOrder = () => {
     setOpen(true);
@@ -146,20 +232,10 @@ export default function OrderAdmin() {
     </Box>
   );
   const contentView = (
-    <JsonViewer 
-    value={orderDetails}
-    valueTypes={[
-      {
-        is: (value) =>
-          typeof value === 'string' &&
-          value.startsWith('https://sneakerstorebe-v1.herokuapp.com/public/images'),
-        Component: (props) => {
-          console.log(props);
-          return <img height="50px" src={props.value} alt={props.value}/>;
-        },
-      },
-    ]}
-    />
+    <DataTable
+    rows={orderDetails}
+    headCells={headCellsView}
+  />
   );
   const handleDispatch = () => {
     if(isUpdate){
@@ -199,6 +275,7 @@ export default function OrderAdmin() {
         handleEditSelect={handleEditSelect}
         handleDeleteSelect={handleDeleteSelect}
         handleViewSelect={handleViewSelect}
+        optionsCheck={optionsCheck}
       />
       <ModalForm
         title={"Order"}

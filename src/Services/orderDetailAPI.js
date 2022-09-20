@@ -1,8 +1,8 @@
 import {axiosClient} from "../Utils/axiosClient";
 
 const orderDetailAPI = {
-    getOrderDetails: () => {
-        const path = "/orderDetail/getOrderDetails";
+    getOrderDetails: (id) => {
+        const path = `/orderDetail/getOrderDetailByOrderId/${id}`;
         return axiosClient.get(path);
     },
     addOrderDetail: (data) => {

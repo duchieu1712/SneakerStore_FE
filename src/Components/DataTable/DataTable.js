@@ -15,7 +15,7 @@ import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { MdDelete } from "react-icons/md";
+import { MdDelete,MdVisibility } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { visuallyHidden } from "@mui/utils";
 
@@ -35,7 +35,7 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export default function DataTable({rows, headCells, handleEditSelect,handleDeleteSelect}) {
+export default function DataTable({rows, headCells, handleEditSelect,handleDeleteSelect,handleViewSelect}) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
   const [selected, setSelected] = useState([]);
@@ -158,7 +158,6 @@ export default function DataTable({rows, headCells, handleEditSelect,handleDelet
     }
     setSelected([]);
   };
-
   const handleClick = (event, id) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
@@ -259,6 +258,14 @@ export default function DataTable({rows, headCells, handleEditSelect,handleDelet
                           onClick={() => {handleEditSelect(row)}}
                         >
                           <FaEdit />
+                        </IconButton>
+                        <IconButton
+                          color="primary"
+                          component="span"
+                          size="small"
+                          onClick={() => {handleViewSelect(row)}}
+                        >
+                          {window.location.pathname==='/admin/order' ? <MdVisibility/> : null}
                         </IconButton>
                       </TableCell>
                     </TableRow>

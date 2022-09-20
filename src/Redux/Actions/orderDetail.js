@@ -1,10 +1,10 @@
 import orderDetailAPI from "../../Services/orderDetailAPI";
 
-export const getOrderDetails = () => {
+export const getOrderDetails = (value) => {
     return (dispatch) => {
       dispatch({ type: "GET_ORDERDETAILS_REQUEST" });
       orderDetailAPI
-        .getOrderDetails()
+        .getOrderDetails(value)
         .then((result) => {
           dispatch({
             type: "GET_ORDERDETAILS_SUCCESS",

@@ -10,7 +10,7 @@ const orderDetailReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "GET_ORDERDETAILS_SUCCESS": {
-      return { ...state, loading: false, orderDetails: action.payload.data };
+      return { ...state, loading: false, orderDetails: action.payload.data.data };
     }
     case "GET_ORDERDETAILS_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };

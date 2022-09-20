@@ -9,6 +9,8 @@ import Box from "@mui/material/Box";
 import { BsPlus } from "react-icons/bs";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
 import { addOrder, deleteOrder, getOrders, updateOrder } from "../../Redux/Actions/order";
+import { getOrderDetails } from "../../Redux/Actions/orderDetail";
+import {JsonViewer} from '@textea/json-viewer'
 
 const headCells = [
   {
@@ -58,12 +60,14 @@ const headCells = [
     label: "Status",
   },
 ];
+
 export default function OrderAdmin() {
   const dispatch = useDispatch();
   const [key, setKey] = useState("");
   const [orderObj, setOrderObj] = useState({});
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openView, setOpenView] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [orderDelete,setOrderDelete] = useState([])
@@ -73,7 +77,7 @@ export default function OrderAdmin() {
     // eslint-disable-next-line
   }, []);
   const { orders, message, error } = useSelector((state) => state.orderReducer);
-  console.log(orders);
+  const { orderDetails } = useSelector((state) => state.orderDetailReducer);
   const handleOpenAlert = () => {
     setOpenAlert(true)
     setTimeout(function(){
@@ -98,12 +102,21 @@ export default function OrderAdmin() {
     setOpen(true);
     setIsUpdate(true)
   };
+  const handleViewSelect = (select) => {
+    dispatch(getOrderDetails(select.id))
+    setOrderObj(select);
+    setOpenView(true);
+  };
   const handleClose = () => {
     setOpen(false);
     setOrderObj({});
   };
   const handleCloseDelete = () => {
     setOpenDelete(false);
+    setOrderDelete([]);
+  };
+  const handleCloseView = (select) => {
+    setOpenView(false);
     setOrderDelete([]);
   };
   const handleAddOrder = () => {
@@ -131,6 +144,22 @@ export default function OrderAdmin() {
       })} " ???
       
     </Box>
+  );
+  const contentView = (
+    <JsonViewer 
+    value={orderDetails}
+    valueTypes={[
+      {
+        is: (value) =>
+          typeof value === 'string' &&
+          value.startsWith('https://sneakerstorebe-v1.herokuapp.com/public/images'),
+        Component: (props) => {
+          console.log(props);
+          return <img height="50px" src={props.value} alt={props.value}/>;
+        },
+      },
+    ]}
+    />
   );
   const handleDispatch = () => {
     if(isUpdate){
@@ -169,6 +198,7 @@ export default function OrderAdmin() {
         headCells={headCells}
         handleEditSelect={handleEditSelect}
         handleDeleteSelect={handleDeleteSelect}
+        handleViewSelect={handleViewSelect}
       />
       <ModalForm
         title={"Order"}
@@ -183,6 +213,13 @@ export default function OrderAdmin() {
         handleClose={() => handleCloseDelete()}
         formInput={contentDelete}
         handleDispatch={handleDispatchDelete}
+      />
+       <ModalForm
+        title={"View Order Detail"}
+        open={openView}
+        handleClose={() => handleCloseView()}
+        formInput={contentView}
+        width="100"
       />
       <StatusAlert message={message} error={error} openAlert={openAlert} onCloseAlert={handleCloseAlert}/>
     </div>

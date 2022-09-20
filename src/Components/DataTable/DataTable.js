@@ -35,7 +35,7 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export default function DataTable({rows, headCells, handleEditSelect,handleDeleteSelect,handleViewSelect}) {
+  export default function DataTable({rows, headCells, handleEditSelect,handleDeleteSelect,handleViewSelect,optionsCheck}) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
   const [selected, setSelected] = useState([]);
@@ -235,7 +235,7 @@ export default function DataTable({rows, headCells, handleEditSelect,handleDelet
                       </TableCell>
                       {headCells.map((column,index) => {
                         const value = row[column.id];
-                        if(column.id === "image"){
+                        if(column.id === "image"|| column.label==="Product Image"){
                           return(
                             <TableCell width="20%" key={index}>
                               <img src={column.format(value)} alt="img"/>
@@ -265,7 +265,7 @@ export default function DataTable({rows, headCells, handleEditSelect,handleDelet
                           size="small"
                           onClick={() => {handleViewSelect(row)}}
                         >
-                          {window.location.pathname==='/admin/order' ? <MdVisibility/> : null}
+                          {optionsCheck ? <MdVisibility/> : null}
                         </IconButton>
                       </TableCell>
                     </TableRow>

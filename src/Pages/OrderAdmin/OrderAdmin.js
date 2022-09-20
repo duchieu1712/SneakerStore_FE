@@ -4,13 +4,17 @@ import DataTable from "../../Components/DataTable/DataTable";
 import ModalForm from "../../Components/ModalForm/ModalForm";
 import SearchInput from "../../Components/SearchInput/SearchInput";
 import TextField from "@mui/material/TextField";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { BsPlus } from "react-icons/bs";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
-import { addOrder, deleteOrder, getOrders, updateOrder } from "../../Redux/Actions/order";
+import {
+  addOrder,
+  deleteOrder,
+  getOrders,
+  updateOrder,
+} from "../../Redux/Actions/order";
 import { getOrderDetails } from "../../Redux/Actions/orderDetail";
-import {JsonViewer} from '@textea/json-viewer'
 
 const headCells = [
   {
@@ -20,7 +24,9 @@ const headCells = [
   },
   {
     id: "total_price",
-    format: (value) => {return value ? value+"$" : "Not yet"},
+    format: (value) => {
+      return value ? value + "$" : "Not yet";
+    },
     label: "Total price",
   },
   {
@@ -30,12 +36,16 @@ const headCells = [
   },
   {
     id: "VAT",
-    format: (value) => {return value +"%"},
+    format: (value) => {
+      return value + "%";
+    },
     label: "VAT",
   },
   {
     id: "orderconfirm_time",
-    format: (value) => {return value ? value+"$" : "Not yet"},
+    format: (value) => {
+      return value ? value + "$" : "Not yet";
+    },
     label: "Confirmed order time",
   },
   {
@@ -45,7 +55,9 @@ const headCells = [
   },
   {
     id: "delivery",
-    format: (value) => {return value ? value.name : "Not yet"},
+    format: (value) => {
+      return value ? value.name : "Not yet";
+    },
     label: "Delivery service",
   },
   {
@@ -61,6 +73,90 @@ const headCells = [
   },
 ];
 
+const headCellsView = [
+  {
+    id: "id",
+    format: (value) => value.toLocaleString("en-US"),
+    label: "ID",
+  },
+  {
+    id: "amount",
+    format: (value) => value.toLocaleString("en-US"),
+    label: "Amount",
+  },
+  {
+    id: "order_id",
+    format: (value) => value.toLocaleString("en-US"),
+    label: "Order ID",
+  },
+  // {
+  //   id: "product_id",
+  //   format: (value) => value.toLocaleString("en-US"),
+  //   label: "Product ID",
+  // },
+  {
+    id: "size",
+    format: (value) => value.toLocaleString("en-US"),
+    label: "Size",
+  },
+  {
+    id: "product",
+    format: (value) => value?.id,
+    label: "Product ID",
+  },
+  {
+    id: "product",
+    format: (value) => value?.name,
+    label: "Product Name",
+  },
+  {
+    id: "product",
+    format: (value) => value?.price,
+    label: "Product Price",
+  },
+  {
+    id: "product",
+    format: (value) => value?.descrip,
+    label: "Product Descrip",
+  },
+  {
+    id: "product",
+    format: (value) => value?.highlights,
+    label: "Product Highlights",
+  },
+  {
+    id: "product",
+    format: (value) => value?.image,
+    label: "Product Image",
+  },
+  // {
+  //   id: "orderconfirm_time",
+  //   format: (value) => {return value ? value+"$" : "Not yet"},
+  //   label: "Confirmed order time",
+  // },
+  // {
+  //   id: "user",
+  //   format: (value) => value.email,
+  //   label: "User email",
+  // },
+  // {
+  //   id: "delivery",
+  //   format: (value) => {return value ? value.name : "Not yet"},
+  //   label: "Delivery service",
+  // },
+  // {
+  //   id: "order_status",
+  //   format: (value) => {
+  //     if (value === 0) {
+  //       return "Shopping";
+  //     } else {
+  //       return "Ordered";
+  //     }
+  //   },
+  //   label: "Status",
+  // },
+];
+
 export default function OrderAdmin() {
   const dispatch = useDispatch();
   const [key, setKey] = useState("");
@@ -70,7 +166,8 @@ export default function OrderAdmin() {
   const [openView, setOpenView] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
-  const [orderDelete,setOrderDelete] = useState([])
+  const [orderDelete, setOrderDelete] = useState([]);
+  const [optionsCheck, setOptionsCheck] = useState(true);
 
   useEffect(() => {
     dispatch(getOrders());
@@ -79,11 +176,11 @@ export default function OrderAdmin() {
   const { orders, message, error } = useSelector((state) => state.orderReducer);
   const { orderDetails } = useSelector((state) => state.orderDetailReducer);
   const handleOpenAlert = () => {
-    setOpenAlert(true)
-    setTimeout(function(){
+    setOpenAlert(true);
+    setTimeout(function () {
       window.location.reload(1);
-   }, 2000);
-  }
+    }, 2000);
+  };
   const handleCloseAlert = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -100,12 +197,13 @@ export default function OrderAdmin() {
   const handleEditSelect = (select) => {
     setOrderObj(select);
     setOpen(true);
-    setIsUpdate(true)
+    setIsUpdate(true);
   };
   const handleViewSelect = (select) => {
-    dispatch(getOrderDetails(select.id))
+    dispatch(getOrderDetails(select.id));
     setOrderObj(select);
     setOpenView(true);
+    setOptionsCheck(false);
   };
   const handleClose = () => {
     setOpen(false);
@@ -115,77 +213,84 @@ export default function OrderAdmin() {
     setOpenDelete(false);
     setOrderDelete([]);
   };
-  const handleCloseView = (select) => {
+  const handleCloseView = () => {
     setOpenView(false);
     setOrderDelete([]);
+    setOptionsCheck(true);
   };
   const handleAddOrder = () => {
     setOpen(true);
-    setIsUpdate(false)
-  }
-  const handleChangeObj = (type)=>(e) => {
-    setOrderObj({...orderObj, [type]:e.target.value})
-  }
+    setIsUpdate(false);
+  };
+  const handleChangeObj = (type) => (e) => {
+    setOrderObj({ ...orderObj, [type]: e.target.value });
+  };
   const content = (
-    <Box component="form"
+    <Box
+      component="form"
       sx={{
         "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}>
+      }}
+    >
       {/* <TextField label="Order" size="small" value={orderObj.name} onChange={handleChangeObj("name")}/> */}
       {/* <TextField label="Percent" type="number" size="small" value= {orderObj.percent} onChange={handleChangeObj("percent")}/> */}
     </Box>
   );
   const contentDelete = (
     <Box>
-      Are you sure want to delete these orders "{orderDelete.map((item)=>{
-        return(
-          `${item} `
-        )
-      })} " ???
-      
+      Are you sure want to delete these orders "
+      {orderDelete.map((item) => {
+        return `${item} `;
+      })}{" "}
+      " ???
     </Box>
   );
   const contentView = (
-    <div>content</div>
+    <DataTable rows={orderDetails} headCells={headCellsView} />
   );
   const handleDispatch = () => {
-    if(isUpdate){
-      dispatch(updateOrder(orderObj.id,orderObj))
-    }else{
-      dispatch(addOrder(orderObj))
+    if (isUpdate) {
+      dispatch(updateOrder(orderObj.id, orderObj));
+    } else {
+      dispatch(addOrder(orderObj));
       console.log(orderObj);
     }
     handleClose();
-    setTimeout(handleOpenAlert, 2000)
-  }
-  const handleDeleteSelect = (select)=>{
-    setOrderDelete(select)
-    setOpenDelete(true)
-  }
-  const handleDispatchDelete = ()=>{
-    dispatch(deleteOrder(orderDelete))
+    setTimeout(handleOpenAlert, 2000);
+  };
+  const handleDeleteSelect = (select) => {
+    setOrderDelete(select);
+    setOpenDelete(true);
+  };
+  const handleDispatchDelete = () => {
+    dispatch(deleteOrder(orderDelete));
     console.log(orderDelete);
     handleCloseDelete();
-    setTimeout(handleOpenAlert, 2000)
-  }
+    setTimeout(handleOpenAlert, 2000);
+  };
   return (
     <div>
       <div className="flex justify-between mb-2">
         <SearchInput
-        onHandleChange={handleChange}
-        onHandleSearch={handleSearch}
-      />
-      <Button variant="contained" startIcon={<BsPlus />} onClick={handleAddOrder}>
-        Add order
-      </Button>
+          onHandleChange={handleChange}
+          onHandleSearch={handleSearch}
+        />
+        <Button
+          variant="contained"
+          startIcon={<BsPlus />}
+          onClick={handleAddOrder}
+        >
+          Add order
+        </Button>
       </div>
-      
+
       <DataTable
         rows={orders}
         headCells={headCells}
         handleEditSelect={handleEditSelect}
         handleDeleteSelect={handleDeleteSelect}
         handleViewSelect={handleViewSelect}
+        optionsCheck={optionsCheck}
       />
       <ModalForm
         title={"Order"}
@@ -201,14 +306,19 @@ export default function OrderAdmin() {
         formInput={contentDelete}
         handleDispatch={handleDispatchDelete}
       />
-       <ModalForm
+      <ModalForm
         title={"View Order Detail"}
         open={openView}
         handleClose={() => handleCloseView()}
         formInput={contentView}
         width="100"
       />
-      <StatusAlert message={message} error={error} openAlert={openAlert} onCloseAlert={handleCloseAlert}/>
+      <StatusAlert
+        message={message}
+        error={error}
+        openAlert={openAlert}
+        onCloseAlert={handleCloseAlert}
+      />
     </div>
   );
 }

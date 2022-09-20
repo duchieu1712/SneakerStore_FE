@@ -11,8 +11,8 @@ import { BsPersonPlusFill } from "react-icons/bs";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {NavLink} from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { signUp } from "../../Redux/Actions/user";
 
 function Copyright(props) {
@@ -37,19 +37,19 @@ const theme = createTheme();
 
 export default function SignUp() {
   const dispatch = useDispatch();
-  const { error } = useSelector(
-    (state) => state.userReducer
-  );
+  // const { error } = useSelector((state) => state.userReducer);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    dispatch(signUp({
-      username: data.get("firstName") + " " + data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-      address: data.get("address"),
-      phone: data.get("phone"),
-    }))
+    dispatch(
+      signUp({
+        username: data.get("firstName") + " " + data.get("lastName"),
+        email: data.get("email"),
+        password: data.get("password"),
+        address: data.get("address"),
+        phone: data.get("phone"),
+      })
+    );
   };
 
   return (

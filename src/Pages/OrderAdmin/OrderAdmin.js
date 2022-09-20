@@ -146,20 +146,7 @@ export default function OrderAdmin() {
     </Box>
   );
   const contentView = (
-    <JsonViewer 
-    value={orderDetails}
-    valueTypes={[
-      {
-        is: (value) =>
-          typeof value === 'string' &&
-          value.startsWith('https://sneakerstorebe-v1.herokuapp.com/public/images'),
-        Component: (props) => {
-          console.log(props);
-          return <img height="50px" src={props.value} alt={props.value}/>;
-        },
-      },
-    ]}
-    />
+    <div>content</div>
   );
   const handleDispatch = () => {
     if(isUpdate){

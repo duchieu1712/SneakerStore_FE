@@ -62,6 +62,7 @@ export default function ProductDetail(props) {
   const {product} = useSelector(state => state.productReducer)
   useEffect(() => {
     dispatch(getProductById(props.match.params.id))
+    // eslint-disable-next-line
   },[props.match.params.id])
   console.log(product);
 
@@ -113,50 +114,14 @@ export default function ProductDetail(props) {
           {/* Options */}
           <div className="mt-4 lg:mt-0 lg:row-span-3">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl text-gray-900">{product.price}</p>
-
+            <p className="text-3xl text-gray-600 line-through">${product.price}</p>
+            <p className="text-3xl">${product.price_discounted}</p>
             <form className="mt-10">
-              {/* Colors */}
-              {/* <div>
-                <h3 className="text-sm text-gray-900 font-medium">Color</h3>
-
-                <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
-                  <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
-                  <div className="flex items-center space-x-3">
-                    {product.colors.map((color) => (
-                      <RadioGroup.Option
-                        key={color.name}
-                        value={color}
-                        className={({ active, checked }) =>
-                          classNames(
-                            color.selectedClass,
-                            active && checked ? 'ring ring-offset-1' : '',
-                            !active && checked ? 'ring-2' : '',
-                            '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-                          )
-                        }
-                      >
-                        <RadioGroup.Label as="span" className="sr-only">
-                          {color.name}
-                        </RadioGroup.Label>
-                        <span
-                          aria-hidden="true"
-                          className={classNames(
-                            color.class,
-                            'h-8 w-8 border border-black border-opacity-10 rounded-full'
-                          )}
-                        />
-                      </RadioGroup.Option>
-                    ))}
-                  </div>
-                </RadioGroup>
-              </div> */}
-
               {/* Sizes */}
-              {/* <div className="mt-10">
+              <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm text-gray-900 font-medium">Size</h3>
-                  <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                  <a href="/#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Size guide
                   </a>
                 </div>
@@ -164,25 +129,25 @@ export default function ProductDetail(props) {
                 <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
                   <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
                   <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                    {product.size_id_sizes.map((option) => (
+                    {product.size_id_sizes?.map((option) => (
                       <RadioGroup.Option
-                        key={option.size}
+                        key={option.name}
                         value={option}
                         // disabled={!size.inStock}
                         className={({ active }) =>
                           classNames(
-                            size.inStock
+                            option.product_size?.amount !== 0
                               ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
                               : 'bg-gray-50 text-gray-200 cursor-not-allowed',
                             active ? 'ring-2 ring-indigo-500' : '',
-                            'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
+                            'group relative border rounded-md py-2 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-3'
                           )
                         }
                       >
                         {({ active, checked }) => (
                           <>
-                            <RadioGroup.Label as="span">{option.size}</RadioGroup.Label>
-                            {size.inStock ? (
+                            <RadioGroup.Label as="span">{option.name}</RadioGroup.Label>
+                            {option.product_size?.amount !== 0 ? (
                               <span
                                 className={classNames(
                                   active ? 'border' : 'border-2',
@@ -212,7 +177,7 @@ export default function ProductDetail(props) {
                     ))}
                   </div>
                 </RadioGroup>
-              </div> */}
+              </div>
 
               <button
                 type="submit"

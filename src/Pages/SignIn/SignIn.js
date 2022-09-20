@@ -13,7 +13,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../Redux/Actions/user";
-import { Red, NavLink, Redirect } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
 
 function Copyright(props) {

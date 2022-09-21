@@ -76,11 +76,6 @@ const headCellsView = [
     format: (value) => value.toLocaleString("en-US"),
     label: "Order ID",
   },
-  // {
-  //   id: "product_id",
-  //   format: (value) => value.toLocaleString("en-US"),
-  //   label: "Product ID",
-  // },
   {
     id: "size",
     format: (value) => value.toLocaleString("en-US"),
@@ -116,32 +111,7 @@ const headCellsView = [
     format: (value) => value?.image,
     label: "Product Image",
   },
-  // {
-  //   id: "orderconfirm_time",
-  //   format: (value) => {return value ? value+"$" : "Not yet"},
-  //   label: "Confirmed order time",
-  // },
-  // {
-  //   id: "user",
-  //   format: (value) => value.email,
-  //   label: "User email",
-  // },
-  // {
-  //   id: "delivery",
-  //   format: (value) => {return value ? value.name : "Not yet"},
-  //   label: "Delivery service",
-  // },
-  // {
-  //   id: "order_status",
-  //   format: (value) => {
-  //     if (value === 0) {
-  //       return "Shopping";
-  //     } else {
-  //       return "Ordered";
-  //     }
-  //   },
-  //   label: "Status",
-  // },
+
 ];
 
 export default function OrderAdmin() {

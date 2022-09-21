@@ -1,5 +1,7 @@
-import { FaUserAlt, FaTags, FaPercentage, FaClipboardList } from "react-icons/fa";
+import { FaUserAlt, FaTags, FaPercentage, FaBoxes } from "react-icons/fa";
 import { GiConverseShoe } from "react-icons/gi";
+import { IoMdResize } from "react-icons/io";
+
 import { MdCategory, MdDeliveryDining, MdShoppingCart, MdSettings, MdDashboard } from "react-icons/md";
 
 const sidebarConfig = [
@@ -44,9 +46,14 @@ const sidebarConfig = [
     title: "Order",
   },
   {
-    href: "/admin/orderDetail",
-    icon: <FaClipboardList style={{ fontSize: "18px" }} />,
-    title: "Order Detail",
+    href: "/admin/size",
+    icon: <IoMdResize style={{ fontSize: "18px" }} />,
+    title: "Size",
+  },
+  {
+    href: "/admin/stock",
+    icon: <FaBoxes style={{ fontSize: "18px" }} />,
+    title: "Stock",
   },
   {
     href: "/admin/settings",

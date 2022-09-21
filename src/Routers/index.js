@@ -13,7 +13,6 @@ import BrandAdmin from "../Pages/BrandAdmin/BrandAdmin";
 import DeliveryAdmin from "../Pages/DeliveryAdmin/DeliveryAdmin";
 import DiscountAdmin from "../Pages/DiscountAdmin/DiscountAdmin";
 import OrderAdmin from "../Pages/OrderAdmin/OrderAdmin";
-import OrderDetailAdmin from "../Pages/OrderDetailAdmin/OrderDetailAdmin";
 import AdminSettings from "../Pages/AdminSettings/AdminSettings";
 import AuthLayout from "../Layouts/AuthLayout/AuthLayout";
 import SignIn from "../Pages/SignIn/SignIn";
@@ -63,12 +62,6 @@ export default function Routers() {
               />
 
               <AdminRoute exact path="/admin/order" component={OrderAdmin} />
-
-              <AdminRoute
-                exact
-                path="/admin/orderDetail"
-                component={OrderDetailAdmin}
-              />
 
               <AdminRoute path="/admin/settings" component={AdminSettings} />
             </Switch>

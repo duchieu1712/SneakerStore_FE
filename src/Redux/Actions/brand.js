@@ -87,3 +87,23 @@ export const deleteBrand = (id) => {
       });
   };
 };
+
+export const searchBrand = (value) => {
+  return (dispatch) => {
+    dispatch({ type: "SEARCH_BRAND_REQUEST" });
+    brandAPI
+      .searchBrand(value)
+      .then((result) => {
+        dispatch({
+          type: "SEARCH_BRAND_SUCCESS",
+          payload: { data: result.data },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "SEARCH_BRAND_FAILURE",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};

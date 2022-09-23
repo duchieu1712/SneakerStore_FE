@@ -3,6 +3,7 @@ const initialState = {
   message: null,
   loading: false,
   error: null,
+  searchCategories: null
 };
 
 const categoryReducer = (state = initialState, action) => {
@@ -46,6 +47,15 @@ const categoryReducer = (state = initialState, action) => {
     case "DELETE_CATEGORY_FAILURE": {
         return {...state, loading: false, error: action.payload.error.message}
     }
+    case "SEARCH_CATEGORY_REQUEST": {
+        return { ...state, loading: true, error: null };
+      }
+      case "SEARCH_CATEGORY_SUCCESS": {
+        return { ...state, searchCategories: action.payload.data.data, loading: false, message: action.payload.data.message, error: null };
+      }
+      case "SEARCH_CATEGORY_FAILURE": {
+        return { ...state, loading: false, error: action.payload.error };
+      }
     default:
         return state;
   }

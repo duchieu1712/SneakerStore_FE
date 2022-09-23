@@ -12,6 +12,7 @@ import {
   addBrand,
   deleteBrand,
   getBrands,
+  searchBrand,
   updateBrand,
 } from "../../Redux/Actions/brand";
 
@@ -51,7 +52,7 @@ export default function BrandAdmin() {
     dispatch(getBrands());
     // eslint-disable-next-line
   }, []);
-  const { brands, message, error } = useSelector((state) => state.brandReducer);
+  const { brands, searchBrands, message, error } = useSelector((state) => state.brandReducer);
 
   const handleOpenAlert = () => {
     setOpenAlert(true);
@@ -70,7 +71,8 @@ export default function BrandAdmin() {
     setKey(e.target.value);
   };
   const handleSearch = () => {
-    console.log(key);
+    dispatch(searchBrand({search:key}))
+    setOpenAlert(true);
   };
   const handleEditSelect = (select) => {
     setBrandObj(select);
@@ -176,7 +178,7 @@ export default function BrandAdmin() {
       </div>
 
       <DataTable
-        rows={brands}
+        rows={searchBrands ? searchBrands : brands}
         headCells={headCells}
         handleEditSelect={handleEditSelect}
         handleDeleteSelect={handleDeleteSelect}

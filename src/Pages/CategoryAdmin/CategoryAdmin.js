@@ -6,7 +6,7 @@ import SearchInput from "../../Components/SearchInput/SearchInput";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
-import { addCategory, deleteCategory, getCategories, updateCategory } from "../../Redux/Actions/category";
+import { addCategory, deleteCategory, getCategories, searchCategory, updateCategory } from "../../Redux/Actions/category";
 import { BsPlus } from "react-icons/bs";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
 
@@ -36,7 +36,7 @@ export default function CategoryAdmin() {
     dispatch(getCategories());
     // eslint-disable-next-line
   }, []);
-  const { categories, message, error } = useSelector((state) => state.categoryReducer);
+  const { categories, searchCategories, message, error } = useSelector((state) => state.categoryReducer);
 
   const handleOpenAlert = () => {
     setOpenAlert(true)
@@ -55,7 +55,8 @@ export default function CategoryAdmin() {
     setKey(e.target.value);
   };
   const handleSearch = () => {
-    console.log(key);
+    dispatch(searchCategory({search:key}))
+    setOpenAlert(true);
   };
   const handleEditSelect = (select) => {
     setCategoryObj(select);
@@ -124,7 +125,7 @@ export default function CategoryAdmin() {
       </div>
       
       <DataTable
-        rows={categories}
+        rows={searchCategories ? searchCategories : categories}
         headCells={headCells}
         handleEditSelect={handleEditSelect}
         handleDeleteSelect={handleDeleteSelect}

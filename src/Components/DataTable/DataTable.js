@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -15,7 +15,7 @@ import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { MdDelete,MdVisibility } from "react-icons/md";
+import { MdDelete, MdVisibility, MdDoNotDisturbOn } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { visuallyHidden } from "@mui/utils";
 
@@ -35,15 +35,22 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-  export default function DataTable({rows, headCells, handleEditSelect,handleDeleteSelect,handleViewSelect,optionsCheck}) {
+export default function DataTable({
+  rows,
+  headCells,
+  handleEditSelect,
+  handleDeleteSelect,
+  handleViewSelect,
+  optionsCheck,
+}) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const EnhancedTableToolbar = (props) => {
     const { numSelected } = props;
-  
+
     return (
       <Toolbar
         sx={{
@@ -74,25 +81,28 @@ function getComparator(order, orderBy) {
             id="tableTitle"
             component="div"
           >
-            Nutrition
+            Data table
           </Typography>
         )}
-  
+
         {numSelected > 0 ? (
           <Tooltip title="Delete">
-            <IconButton onClick = {()=>{handleDeleteSelect(selected)}}>
+            <IconButton
+              onClick={() => {
+                handleDeleteSelect(selected);
+              }}
+            >
               <MdDelete />
             </IconButton>
           </Tooltip>
         ) : (
-          <div>
-          </div>
+          <div></div>
         )}
       </Toolbar>
     );
   };
 
-  const EnhancedTableHead= (props) => {
+  const EnhancedTableHead = (props) => {
     const {
       onSelectAllClick,
       order,
@@ -132,7 +142,9 @@ function getComparator(order, orderBy) {
                 {headCell.label}
                 {orderBy === headCell.id ? (
                   <Box component="span" sx={visuallyHidden}>
-                    {order === "desc" ? "sorted descending" : "sorted ascending"}
+                    {order === "desc"
+                      ? "sorted descending"
+                      : "sorted ascending"}
                   </Box>
                 ) : null}
               </TableSortLabel>
@@ -142,8 +154,8 @@ function getComparator(order, orderBy) {
         </TableRow>
       </TableHead>
     );
-  }
-  
+  };
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -223,28 +235,39 @@ function getComparator(order, orderBy) {
                       key={row.id}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          onClick={(event) => handleClick(event, row.id)}
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
-                      {headCells.map((column,index) => {
+                      {row.id ? (
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            onClick={(event) => handleClick(event, row.id)}
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              "aria-labelledby": labelId,
+                            }}
+                          />
+                        </TableCell>
+                      ) : (
+                        <TableCell align="center">
+                          <MdDoNotDisturbOn fontSize={"20px"}/>
+                        </TableCell>
+                      )}
+
+                      {headCells.map((column, index) => {
                         const value = row[column.id];
-                        if(column.id === "image"|| column.label==="Product Image"){
-                          return(
+                        if (
+                          column.id === "image" ||
+                          column.label === "Product Image"
+                        ) {
+                          return (
                             <TableCell width="20%" key={index}>
-                              <img src={column.format(value)} alt="img"/>
+                              <img src={column.format(value)} alt="img" />
                             </TableCell>
-                          )
+                          );
                         }
                         return (
                           <TableCell key={index}>
-                            {(column.format && typeof value === "object") || (column.format && typeof value === "number")
+                            {(column.format && typeof value === "object") ||
+                            (column.format && typeof value === "number")
                               ? column.format(value)
                               : value}
                           </TableCell>
@@ -255,7 +278,9 @@ function getComparator(order, orderBy) {
                           color="primary"
                           component="span"
                           size="small"
-                          onClick={() => {handleEditSelect(row)}}
+                          onClick={() => {
+                            handleEditSelect(row);
+                          }}
                         >
                           <FaEdit />
                         </IconButton>
@@ -263,9 +288,11 @@ function getComparator(order, orderBy) {
                           color="primary"
                           component="span"
                           size="small"
-                          onClick={() => {handleViewSelect(row)}}
+                          onClick={() => {
+                            handleViewSelect(row);
+                          }}
                         >
-                          {optionsCheck ? <MdVisibility/> : null}
+                          {optionsCheck ? <MdVisibility /> : null}
                         </IconButton>
                       </TableCell>
                     </TableRow>
@@ -273,7 +300,10 @@ function getComparator(order, orderBy) {
                 })}
               {rows.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={headCells.length + 2} sx={{fontSize:"16px"}}>
+                  <TableCell
+                    colSpan={headCells.length + 2}
+                    sx={{ fontSize: "16px" }}
+                  >
                     No results for searching
                   </TableCell>
                 </TableRow>

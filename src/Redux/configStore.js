@@ -7,6 +7,9 @@ import orderReducer from "./Reducers/orderReducer";
 import orderDetailReducer from "./Reducers/orderDetailReducer";
 import productReducer from "./Reducers/productReducer";
 import userReducer from "./Reducers/userReducer";
+import sizeReducer from "./Reducers/sizeReducer";
+import productSizeReducer from "./Reducers/productSizeReducer";
+import cartReducer from "./Reducers/cartReducer";
 import thunk from "redux-thunk";
 
 const enhanceCompose = compose(
@@ -22,7 +25,10 @@ const rootReducer = combineReducers({
   orderDetailReducer,
   orderReducer,
   productReducer,
-  userReducer
+  sizeReducer,
+  productSizeReducer,
+  userReducer,
+  cartReducer
 });
 
 const store = legacy_createStore(

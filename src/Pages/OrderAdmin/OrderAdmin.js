@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import DataTable from "../../Components/DataTable/DataTable";
 import ModalForm from "../../Components/ModalForm/ModalForm";
 import SearchInput from "../../Components/SearchInput/SearchInput";
-import TextField from "@mui/material/TextField";
+// import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { BsPlus } from "react-icons/bs";
@@ -80,26 +80,6 @@ const headCellsView = [
     label: "ID",
   },
   {
-    id: "amount",
-    format: (value) => value.toLocaleString("en-US"),
-    label: "Amount",
-  },
-  {
-    id: "order_id",
-    format: (value) => value.toLocaleString("en-US"),
-    label: "Order ID",
-  },
-  {
-    id: "size",
-    format: (value) => value.toLocaleString("en-US"),
-    label: "Size",
-  },
-  {
-    id: "product",
-    format: (value) => value?.id,
-    label: "Product ID",
-  },
-  {
     id: "product",
     format: (value) => value?.name,
     label: "Product Name",
@@ -110,21 +90,15 @@ const headCellsView = [
     label: "Product Price",
   },
   {
-    id: "product",
-    format: (value) => value?.descrip,
-    label: "Product Descrip",
+    id: "amount",
+    format: (value) => value.toLocaleString("en-US"),
+    label: "Amount",
   },
   {
-    id: "product",
-    format: (value) => value?.highlights,
-    label: "Product Highlights",
+    id: "size",
+    format: (value) => value.toLocaleString("en-US"),
+    label: "Size",
   },
-  {
-    id: "product",
-    format: (value) => value?.image,
-    label: "Product Image",
-  },
-
 ];
 
 export default function OrderAdmin() {
@@ -192,9 +166,9 @@ export default function OrderAdmin() {
     setOpen(true);
     setIsUpdate(false);
   };
-  const handleChangeObj = (type) => (e) => {
-    setOrderObj({ ...orderObj, [type]: e.target.value });
-  };
+  // const handleChangeObj = (type) => (e) => {
+  //   setOrderObj({ ...orderObj, [type]: e.target.value });
+  // };
   const content = (
     <Box
       component="form"

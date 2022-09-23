@@ -10,6 +10,7 @@ import menuUserConfig from "../../Utils/menuUserConfig";
 import "./Header.css";
 import SearchInput from "../SearchInput/SearchInput";
 import { useSelector } from "react-redux";
+import Badge from '@mui/material/Badge';
 import TokenService from "../../Services/serviceToken";
 
 function classNames(...classes) {
@@ -18,6 +19,7 @@ function classNames(...classes) {
 
 export default function Header({ onHandleCart, categories, brands }) {
   const { currentUser } = useSelector((state) => state.userReducer);
+  const {numberCart} = useSelector((state) => state.cartReducer);
   const history = useHistory()
   const signOut = () => {
     TokenService.removeUser();
@@ -186,8 +188,10 @@ export default function Header({ onHandleCart, categories, brands }) {
                   className="p-1 rounded-full text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white mr-4"
                   onClick={() => onHandleCart()}
                 >
-                  <span className="sr-only">View notifications</span>
-                  <BsCart4 className="h-6 w-6" aria-hidden="true" />
+                  <Badge badgeContent={numberCart} color="primary">
+                    <BsCart4 className="h-6 w-6" aria-hidden="true" />
+                  </Badge>
+                  
                 </button>
                 <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                   <span className="sr-only">Open user menu</span>

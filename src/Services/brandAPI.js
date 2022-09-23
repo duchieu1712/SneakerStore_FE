@@ -16,6 +16,10 @@ const brandAPI = {
     deleteBrand: (data) => {
         const path = `/brand/deleteBrand`;
         return axiosClient.post(path,data);
+    },
+    searchBrand: (data) => {
+        const path = `/brand/searchBrands`;
+        return axiosClient.post(path,data);
     }
 }
 

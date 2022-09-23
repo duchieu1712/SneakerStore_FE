@@ -79,3 +79,23 @@ export const deleteCategory = (data) => {
       });
   };
 };
+
+export const searchCategory = (value) => {
+  return (dispatch) => {
+    dispatch({ type: "SEARCH_CATEGORY_REQUEST" });
+    categoryAPI
+      .searchCategory(value)
+      .then((result) => {
+        dispatch({
+          type: "SEARCH_CATEGORY_SUCCESS",
+          payload: { data: result.data },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "SEARCH_CATEGORY_FAILURE",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};

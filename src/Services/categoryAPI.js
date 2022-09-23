@@ -16,6 +16,10 @@ const categoryAPI = {
     deleteCategory: (data) => {
         const path = '/category/deleteCategory';
         return axiosClient.post(path,data);
+    },
+    searchCategory: (data) => {
+        const path = `/category/searchCategories`;
+        return axiosClient.post(path,data);
     }
 }
 

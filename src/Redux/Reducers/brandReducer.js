@@ -3,6 +3,7 @@ const initialState = {
   message:"",
   loading: false,
   error: null,
+  searchBrands: null
 };
 
 const brandReducer = (state = initialState, action) => {
@@ -44,6 +45,16 @@ const brandReducer = (state = initialState, action) => {
       return { ...state, loading: false, message: action.payload.data.message, error: null };
     }
     case "DELETE_BRAND_FAILURE": {
+      return { ...state, loading: false, error: action.payload.error };
+    }
+
+    case "SEARCH_BRAND_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "SEARCH_BRAND_SUCCESS": {
+      return { ...state, searchBrands: action.payload.data.data, loading: false, message: action.payload.data.message, error: null };
+    }
+    case "SEARCH_BRAND_FAILURE": {
       return { ...state, loading: false, error: action.payload.error };
     }
     default:

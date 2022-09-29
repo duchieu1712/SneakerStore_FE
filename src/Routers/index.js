@@ -21,6 +21,8 @@ import AdminRoute from "../Guards/AdminRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import UserSettings from "../Pages/UserSettings/UserSettings";
 import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
+import SizeAdmin from "../Pages/SizeAdmin/SizeAdmin";
+import StockAdmin from "../Pages/StockAdmin/StockAdmin";
 
 export default function Routers() {
   return (
@@ -62,6 +64,10 @@ export default function Routers() {
               />
 
               <AdminRoute exact path="/admin/order" component={OrderAdmin} />
+              
+              <AdminRoute exact path="/admin/size" component={SizeAdmin} />
+
+              <AdminRoute exact path="/admin/stock" component={StockAdmin} />
 
               <AdminRoute path="/admin/settings" component={AdminSettings} />
             </Switch>

@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
 import { BsPlus } from "react-icons/bs";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
-import { addDiscount, deleteDiscount, getDiscounts, updateDiscount } from "../../Redux/Actions/discount";
+import { addDiscount, deleteDiscount, getDiscounts, searchDiscount, updateDiscount } from "../../Redux/Actions/discount";
 
 const headCells = [
   {
@@ -43,7 +43,7 @@ export default function DiscountAdmin() {
     dispatch(getDiscounts());
     // eslint-disable-next-line
   }, []);
-  const { discounts, message, error } = useSelector((state) => state.discountReducer);
+  const { discounts, searchDiscounts, message, error } = useSelector((state) => state.discountReducer);
 
   const handleOpenAlert = () => {
     setOpenAlert(true)
@@ -62,7 +62,8 @@ export default function DiscountAdmin() {
     setKey(e.target.value);
   };
   const handleSearch = () => {
-    console.log(key);
+    dispatch(searchDiscount({search:key}))
+    setOpenAlert(true);
   };
   const handleEditSelect = (select) => {
     setDiscountObj(select);
@@ -136,7 +137,7 @@ export default function DiscountAdmin() {
       </div>
       
       <DataTable
-        rows={discounts}
+        rows={searchDiscounts ? searchDiscounts : discounts}
         headCells={headCells}
         handleEditSelect={handleEditSelect}
         handleDeleteSelect={handleDeleteSelect}

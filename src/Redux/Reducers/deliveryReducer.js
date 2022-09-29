@@ -3,6 +3,7 @@ const initialState = {
     message: "",
     loading: false,
     error: null,
+    searchDeliveries: null
   };
   
   const deliveryReducer = (state = initialState, action) => {
@@ -45,6 +46,15 @@ const initialState = {
       }
       case "DELETE_DELIVERY_FAILURE": {
           return {...state, loading: false, error: action.payload.error.message}
+      }
+      case "SEARCH_DELIVERY_REQUEST": {
+        return { ...state, loading: true, error: null };
+      }
+      case "SEARCH_DELIVERY_SUCCESS": {
+        return { ...state, searchDeliveries: action.payload.data.data, loading: false, message: action.payload.data.message, error: null };
+      }
+      case "SEARCH_DELIVERY_FAILURE": {
+        return { ...state, loading: false, error: action.payload.error };
       }
       default:
           return state;

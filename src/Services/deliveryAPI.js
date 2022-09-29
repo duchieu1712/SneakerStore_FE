@@ -16,6 +16,10 @@ const deliveryAPI = {
     deleteDelivery: (data) => {
         const path = `/delivery/deleteDelivery`;
         return axiosClient.post(path,data);
+    },
+    searchDelivery: (data) => {
+        const path = `/delivery/searchDeliveries`;
+        return axiosClient.post(path,data);
     }
 }
 

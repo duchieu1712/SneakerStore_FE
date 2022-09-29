@@ -80,3 +80,22 @@ export const getDeliveries = () => {
     };
   };
   
+  export const searchDelivery = (value) => {
+    return (dispatch) => {
+      dispatch({ type: "SEARCH_DELIVERY_REQUEST" });
+      deliveryAPI
+        .searchDelivery(value)
+        .then((result) => {
+          dispatch({
+            type: "SEARCH_DELIVERY_SUCCESS",
+            payload: { data: result.data },
+          });
+        })
+        .catch((error) => {
+          dispatch({
+            type: "SEARCH_DELIVERY_FAILURE",
+            payload: { error: error.response.data },
+          });
+        });
+    };
+  };

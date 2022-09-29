@@ -2,6 +2,7 @@ const initialState = {
   discounts: [],
   loading: false,
   error: null,
+  searchDiscounts: null
 };
 
 const discountReducer = (state = initialState, action) => {
@@ -44,6 +45,15 @@ const discountReducer = (state = initialState, action) => {
     }
     case "DELETE_DISCOUNT_FAILURE": {
       return { ...state, loading: false, error: action.payload.error.message };
+    }
+    case "SEARCH_DISCOUNT_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "SEARCH_DISCOUNT_SUCCESS": {
+      return { ...state, searchDiscounts: action.payload.data.data, loading: false, message: action.payload.data.message, error: null };
+    }
+    case "SEARCH_DISCOUNT_FAILURE": {
+      return { ...state, loading: false, error: action.payload.error };
     }
     default:
       return state;

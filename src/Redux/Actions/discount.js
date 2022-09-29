@@ -80,3 +80,22 @@ export const getDiscounts = () => {
     };
   };
   
+  export const searchDiscount = (value) => {
+    return (dispatch) => {
+      dispatch({ type: "SEARCH_DISCOUNT_REQUEST" });
+      discountAPI
+        .searchDiscount(value)
+        .then((result) => {
+          dispatch({
+            type: "SEARCH_DISCOUNT_SUCCESS",
+            payload: { data: result.data },
+          });
+        })
+        .catch((error) => {
+          dispatch({
+            type: "SEARCH_DISCOUNT_FAILURE",
+            payload: { error: error.response.data },
+          });
+        });
+    };
+  };

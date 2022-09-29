@@ -16,6 +16,10 @@ const discountAPI = {
     deleteDiscount: (data) => {
         const path = `/discount/deleteDiscount`;
         return axiosClient.post(path,data);
+    },
+    searchDiscount: (data) => {
+        const path = `/discount/searchDiscounts`;
+        return axiosClient.post(path,data);
     }
 }
 

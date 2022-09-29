@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
 import { BsPlus } from "react-icons/bs";
 import StatusAlert from "../../Components/StatusAlert/StatusAlert";
-import { addDelivery, deleteDelivery, getDeliveries, updateDelivery } from "../../Redux/Actions/delivery";
+import { addDelivery, deleteDelivery, getDeliveries, searchDelivery, updateDelivery } from "../../Redux/Actions/delivery";
 
 const headCells = [
   {
@@ -52,7 +52,7 @@ export default function DeliveryAdmin() {
     dispatch(getDeliveries());
     // eslint-disable-next-line
   }, []);
-  const { deliveries, message, error } = useSelector((state) => state.deliveryReducer);
+  const { deliveries,searchDeliveries, message, error } = useSelector((state) => state.deliveryReducer);
 
   const handleOpenAlert = () => {
     setOpenAlert(true)
@@ -71,7 +71,8 @@ export default function DeliveryAdmin() {
     setKey(e.target.value);
   };
   const handleSearch = () => {
-    console.log(key);
+    dispatch(searchDelivery({search:key}))
+    setOpenAlert(true);
   };
   const handleEditSelect = (select) => {
     setDeliveryObj(select);
@@ -145,7 +146,7 @@ export default function DeliveryAdmin() {
       </div>
       
       <DataTable
-        rows={deliveries}
+        rows={searchDeliveries ? searchDeliveries : deliveries}
         headCells={headCells}
         handleEditSelect={handleEditSelect}
         handleDeleteSelect={handleDeleteSelect}

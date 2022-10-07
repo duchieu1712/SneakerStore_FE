@@ -6,24 +6,40 @@ import { getProductById } from "../../Redux/Actions/product";
 import { addCart } from "../../Redux/Actions/cart";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
+import StatusAlert from "../../Components/StatusAlert/StatusAlert";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function ProductDetail(props) {
-  // const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [size, setSize] = useState();
   const [amount, setAmount] = useState(1);
+  const [openAlert, setOpenAlert] = useState(false)
+  const [error, setError] = useState(null)
   const dispatch = useDispatch();
   const { product } = useSelector((state) => state.productReducer);
+  const { message } = useSelector((state) => state.cartReducer);
   useEffect(() => {
     dispatch(getProductById(props.match.params.id));
     // eslint-disable-next-line
   }, [props.match.params.id]);
 
-  const addtoCart = () => {
-    dispatch(addCart({ product, amount, size }));
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenAlert(false);
+  };
+  const addToCart = () => {
+    if (size) {
+      dispatch(addCart({ product, amount, size }));
+      setError(null)
+    } else {
+      setError("Choose size please !!!")
+    }
+    setOpenAlert(true);
   };
   const handleDecre = () => {
     if (amount > 1) {
@@ -177,7 +193,7 @@ export default function ProductDetail(props) {
               </div>
             </form>
             <button
-              onClick={addtoCart}
+              onClick={addToCart}
               className="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Add to bag
@@ -216,6 +232,12 @@ export default function ProductDetail(props) {
         </h3>
         <ProductList />
       </div>
+      <StatusAlert
+        message={message}
+        error={error}
+        openAlert={openAlert}
+        onCloseAlert={handleCloseAlert}
+      />
     </div>
   );
 }

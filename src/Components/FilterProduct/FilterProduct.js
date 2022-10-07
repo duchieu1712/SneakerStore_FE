@@ -117,7 +117,7 @@ export default function FilterProduct({
 
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 gap-x-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-4">
                   {products.map((product) => (
-                    <Product product={product} />
+                    <Product key={product.id} product={product} />
                   ))}
                 </div>
               </div>

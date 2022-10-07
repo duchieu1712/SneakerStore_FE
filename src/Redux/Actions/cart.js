@@ -1,5 +1,4 @@
 export const addCart = (payload) => {
-    console.log(payload);
   return (dispatch) => {
     dispatch({ type: "ADD_CART", payload });
   };
@@ -25,3 +24,8 @@ export const decreaseQuantity = (payload) => {
     dispatch({ type: "DECREASE_QUANTITY", payload });
   };
 };
+export const resetCart = () => {
+  return (dispatch) => {
+    dispatch({type: "RESET_CART"})
+  }
+}

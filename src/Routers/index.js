@@ -23,6 +23,7 @@ import UserSettings from "../Pages/UserSettings/UserSettings";
 import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
 import SizeAdmin from "../Pages/SizeAdmin/SizeAdmin";
 import StockAdmin from "../Pages/StockAdmin/StockAdmin";
+import CheckOutRoute from "../Guards/CheckOutRoute";
 
 export default function Routers() {
   return (
@@ -95,7 +96,7 @@ export default function Routers() {
               <Route exact path="/listProducts" component={ListProducts} />
               <Route exact path="/productDetail/:id" component={ProductDetail} />
               <Route exact path="/userSettings" component={UserSettings} />
-              <Route exact path="/checkout" component={Checkout} />
+              <CheckOutRoute exact path="/checkout" component={Checkout} />
             </Switch>
           </HomeLayout>
         </Route>
